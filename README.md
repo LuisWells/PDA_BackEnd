@@ -1,6 +1,6 @@
 # Design Artifacts
 ### A plugin-able spring boot application for designing management and planning design artifacts
-# Dependencies
+## Dependencies
 - Java 17
 - Spring boot 3
 - Spring Data JPA
