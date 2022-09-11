@@ -28,7 +28,7 @@ public class AdminController {
     }
 
     @GetMapping("/active")
-    public List<Admin> getAdminByIsActive(boolean isActive) {
-        return adminRepository.findByIsActive(isActive);
+    public List<Admin> getAdminByIsActive() {
+        return adminRepository.findByIsActive(true);
     }
 }
