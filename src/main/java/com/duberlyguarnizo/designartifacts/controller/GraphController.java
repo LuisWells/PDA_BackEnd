@@ -25,7 +25,7 @@ public class GraphController {
     }
 
     public List<Graph> getGraphsByCreationUserName(String name) {
-        return graphRepository.getGraphsByCreationAdmin_Name(name);
+        return graphRepository.findGraphsByCreationAdminName(name);
     }
 
     public List<Graph> getGraphsByUpdateUserName(String name) {

@@ -9,4 +9,5 @@ public interface GraphRepository extends JpaRepository<Graph, Long> {
     public Graph getGraphByName(String name);
     public List<Graph> getGraphsByCreationAdmin_Name(String name);
     public List<Graph> getGraphsByUpdateAdmin_Name(String name);
+    public List<Graph> findGraphsByCreationAdminName(String name);
 }

@@ -8,7 +8,10 @@ import java.util.List;
 
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
-    List<Admin> findByIsActive(boolean isActive);
+    List<Admin> findByIsActiveFalse();
+    List<Admin> findByIsActiveTrue();
+    List<Admin> findByNameContaining(String name);
+    List<Admin> findByEmailNull();
+    List<Admin> findByEmailNotNull();
 
-    List<Admin> findByName(String name);
 }
