@@ -18,11 +18,11 @@ import java.util.Objects;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long adminId;
     private String name;
     private String email;
     private String passwordHash;
-    private boolean isActive;
+    private boolean active;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,7 +34,7 @@ public class Admin {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
         Admin admin = (Admin) o;
-        return userId != null && Objects.equals(userId, admin.userId);
+        return adminId != null && Objects.equals(adminId, admin.adminId);
     }
 
     @Override

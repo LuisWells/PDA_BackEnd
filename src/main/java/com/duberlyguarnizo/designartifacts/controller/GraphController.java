@@ -17,18 +17,18 @@ public class GraphController {
     GraphRepository graphRepository;
 
     public Graph getGraphById(Long id) {
-        return graphRepository.findById(id).get();
+        return graphRepository.findById(id).orElse(null);
     }
 
     public Graph getGraphByName(String name) {
-        return graphRepository.getGraphByName(name);
+        return graphRepository.findByName(name);
     }
 
-    public List<Graph> getGraphsByCreationUserName(String name) {
-        return graphRepository.getGraphsByCreationAdmin_Name(name);
+    public List<Graph> getGraphsByCreationUserName(Long adminId) {
+        return graphRepository.findByCreationAdmin_AdminId(adminId);
     }
 
-    public List<Graph> getGraphsByUpdateUserName(String name) {
-        return graphRepository.getGraphsByUpdateAdmin_Name(name);
+    public List<Graph> getGraphsByUpdateUserName(Long adminId) {
+        return graphRepository.findByUpdateAdmin_AdminId(adminId);
     }
 }

@@ -2,8 +2,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.model.Admin;
 import com.duberlyguarnizo.designartifacts.repository.AdminRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/admin")
+@Log
 public class AdminController {
-    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     @Autowired
     private AdminRepository adminRepository;
 
@@ -28,7 +27,17 @@ public class AdminController {
     }
 
     @GetMapping("/active")
-    public List<Admin> getAdminByIsActive() {
-        return adminRepository.findByIsActive(true);
+    public List<Admin> getActiveAdmins() {
+        return adminRepository.findByActiveIsTrue();
+    }
+
+    @GetMapping("/inactive")
+    public List<Admin> getInactiveAdmins() {
+        return adminRepository.findByActiveIsFalse();
+    }
+
+    @GetMapping("/name/{name}")
+    public List<Admin> getAdminsByName(@PathVariable("name") String name) {
+        return adminRepository.findByNameContaining(name);
     }
 }

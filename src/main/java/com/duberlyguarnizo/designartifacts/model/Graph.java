@@ -21,13 +21,13 @@ public class Graph {
     private Long graphId;
     private String name;
     private String version;
-    private String json;
+    private String svg;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_creation_user_id")
+    @JoinColumn(name = "fk_creation_admin_id")
     @ToString.Exclude
     private Admin creationAdmin;
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_update_user_id")
+    @JoinColumn(name = "fk_update_admin_id")
     @ToString.Exclude
     private Admin updateAdmin;
     @Temporal(TemporalType.TIMESTAMP)

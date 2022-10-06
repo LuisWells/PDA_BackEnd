@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Getter
@@ -20,7 +21,7 @@ public class Content {
     private Long contentId;
     private String contentJson;
     @Temporal(TemporalType.TIMESTAMP)
-    private String creationDate;
+    private LocalDateTime creationDate;
 
     @Override
     public boolean equals(Object o) {

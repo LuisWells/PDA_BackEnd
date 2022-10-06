@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -22,10 +23,11 @@ public class ContentController {
     }
 
     public Content getContentById(Long id) {
-        return contentRepository.findById(id).get();
+        Optional<Content> result = contentRepository.findById(id);
+        return result.orElse(null);
     }
 
     public List<Content> getContentByDate(LocalDate date) {
-        return contentRepository.getContentByCreationDate(date);
+        return contentRepository.findByCreationDateBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay());
     }
 }

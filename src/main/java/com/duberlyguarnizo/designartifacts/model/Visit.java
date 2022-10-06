@@ -36,7 +36,10 @@ public class Visit {
     private boolean copiedShareLink;
     private boolean clickedDownloadGraph;
     private boolean fromShareLink;
-    private Long linkId;
+    @OneToOne
+    @JoinColumn(name = "fk_link_id")
+    @ToString.Exclude
+    private Link link;
 
     @Override
     public boolean equals(Object o) {
