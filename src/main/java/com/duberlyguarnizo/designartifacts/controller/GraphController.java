@@ -3,9 +3,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 import com.duberlyguarnizo.designartifacts.model.Graph;
 import com.duberlyguarnizo.designartifacts.repository.GraphRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,19 +14,28 @@ public class GraphController {
     @Autowired
     GraphRepository graphRepository;
 
-    public Graph getGraphById(Long id) {
+    @GetMapping("/id/{id}")
+    public Graph getGraphById(@PathVariable("id") Long id) {
         return graphRepository.findById(id).orElse(null);
     }
 
-    public Graph getGraphByName(String name) {
+    @GetMapping("/name/{name}")
+    public Graph getGraphByName(@PathVariable("name") String name) {
         return graphRepository.findByName(name);
     }
 
-    public List<Graph> getGraphsByCreationUserName(Long adminId) {
+    @GetMapping("/username/{username}")
+    public List<Graph> getGraphsByCreationUserName(@PathVariable("username") Long adminId) {
         return graphRepository.findByCreationAdmin_AdminId(adminId);
     }
 
-    public List<Graph> getGraphsByUpdateUserName(Long adminId) {
+    @GetMapping("/admin/{adminId}")
+    public List<Graph> getGraphsByUpdateUserName(@PathVariable("adminId") Long adminId) {
         return graphRepository.findByUpdateAdmin_AdminId(adminId);
     }
+    @PostMapping("/create")
+    public Graph createGraph(@RequestBody Graph graph) {
+        return graphRepository.save(graph);
+    }
+
 }

@@ -40,4 +40,8 @@ public class AdminController {
     public List<Admin> getAdminsByName(@PathVariable("name") String name) {
         return adminRepository.findByNameContaining(name);
     }
+    @PostMapping("/create")
+    public Admin createAdmin(@RequestBody Admin admin) {
+        return adminRepository.save(admin);
+    }
 }

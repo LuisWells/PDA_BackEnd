@@ -11,5 +11,5 @@
 - Java 17
 - Spring boot 3
 - Spring Data JPA
-- PostgreSql
+- Postgresql
   Configuration as well as new designs for artifacts rely on JSON files.

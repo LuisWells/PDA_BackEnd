@@ -10,34 +10,11 @@ import java.util.Map;
 
 @Log
 public class SvgParser {
-    private static final String svgContent = """
-                            <!--@@@fortalezas=(75,20,32); debilidades=(275,20,32) @@@-->
-                            <?xml version="1.0" encoding="utf-8"?>
-                            <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-                              <rect x="50" y="50" width="200" height="150" style="stroke: rgb(0, 0, 0); fill: none;"/>
-                              <rect x="250" y="50" width="200" height="150" style="stroke: rgb(0, 0, 0); fill: none;"/>
-                              <rect x="50" y="200" width="200" height="150" style="stroke: rgb(0, 0, 0); fill: none;"/>
-                              <rect x="250" y="200" width="200" height="150" style="stroke: rgb(0, 0, 0); fill: none;"/>
-                              <g transform="matrix(1, 0, 0, 1, -100, -185)">
-                                <rect x="150" y="235" width="200" height="30" style="stroke: rgb(0, 0, 0); fill: rgb(241, 241, 241);"/>
-                                <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; white-space: pre;" x="217.323" y="254.853">Fortalezas</text>
-                              </g>
-                              <g transform="matrix(1, 0, 0, 1, -0.723999, -185)">
-                                <rect x="250.724" y="235" width="200" height="30" style="stroke: rgb(0, 0, 0); fill: rgb(241, 241, 241);"/>
-                                <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; white-space: pre;" x="304.805" y="254.853">Oportunidades</text>
-                              </g>
-                              <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 10px; white-space: pre;" x="75" y="100">@fortalezas@</text>
-                              <g>
-                                <rect x="50" y="200" width="200" height="30" style="stroke: rgb(0, 0, 0); fill: rgb(241, 241, 241);"/>
-                                <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; white-space: pre;" x="112.53" y="219.372">Debilidades</text>
-                              </g>
-                              <g>
-                                <rect x="250" y="200" width="200" height="30" style="stroke: rgb(0, 0, 0); fill: rgb(241, 241, 241);"/>
-                                <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; white-space: pre;" x="313.978" y="220.421">Amenazas</text>
-                              </g>
-                              <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 10px; white-space: pre;" x="275" y="100">@debilidades@</text>
-                            </svg>
-            """;
+    private final String svgContent;
+
+    public SvgParser(String svgContent) {
+        this.svgContent = svgContent;
+    }
 
     private static String getContenidoTags(TextVariable textVariable, String contenidoTags) {
         if (contenidoTags.length() > textVariable.nCharactersPerLine) {
@@ -63,16 +40,8 @@ public class SvgParser {
         return contenidoTags;
     }
 
-    public void parse() {
+    public void parse(String contenidosJson) {
 
-        String contenidosJson = """
-                    [
-                    {
-                        "fortalezas": "Este es un texto relativamente largo, pero texto al fin, no crees?",
-                        "debilidades": "Hay muchos tipos de flores en el mundo, pero la mia es mejor."
-                    }
-                ]
-                """;
 
         String textVariablesString = svgContent.split("@@@")[1];
         log.info(textVariablesString);
@@ -122,10 +91,11 @@ public class SvgParser {
     }
 
     static class TextVariable {
-        String name;
-        int xOffset;
-        int yOffset;
-        int nCharactersPerLine;
+        final String name;
+        final int xOffset;
+        final int yOffset;
+        final int nCharactersPerLine;
+
         public TextVariable(String name, int xOffset, int yOffset, int nCharactersPerLine) {
             this.name = name;
             this.xOffset = xOffset;

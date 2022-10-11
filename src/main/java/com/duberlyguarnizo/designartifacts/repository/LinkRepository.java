@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface LinkRepository extends JpaRepository<Link, Long> {
     List<Link> findByLinkId(Long id);
+    Link findByPath(String path);
 }

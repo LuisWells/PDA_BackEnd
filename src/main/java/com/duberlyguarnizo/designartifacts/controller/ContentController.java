@@ -3,9 +3,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 import com.duberlyguarnizo.designartifacts.model.Content;
 import com.duberlyguarnizo.designartifacts.repository.ContentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,16 +16,25 @@ public class ContentController {
     @Autowired
     private ContentRepository contentRepository;
 
+    @GetMapping("/all")
     public List<Content> getAllContent() {
         return contentRepository.findAll();
     }
 
-    public Content getContentById(Long id) {
+    @GetMapping("/id/{id}")
+    public Content getContentById(@PathVariable("id") Long id) {
         Optional<Content> result = contentRepository.findById(id);
         return result.orElse(null);
     }
 
-    public List<Content> getContentByDate(LocalDate date) {
-        return contentRepository.findByCreationDateBetween(date.atStartOfDay(), date.plusDays(1).atStartOfDay());
+    @GetMapping("/date/{date}")
+    public List<Content> getContentByDate(@PathVariable("date") LocalDate date) {
+        return contentRepository.findByCreationDateBetween(
+                date.atStartOfDay(), date.plusDays(1).atStartOfDay()
+        );
+    }
+    @PostMapping("/create")
+    public Content createContent(@RequestBody Content content) {
+        return contentRepository.save(content);
     }
 }
