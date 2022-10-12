@@ -2,18 +2,20 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.model.Visit;
 import com.duberlyguarnizo.designartifacts.repository.VisitRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/visit")
 public class VisitController {
-    @Autowired
-    private VisitRepository visitRepository;
+    private final VisitRepository visitRepository;
+
+    public VisitController(VisitRepository visitRepository) {
+        this.visitRepository = visitRepository;
+    }
 
     @GetMapping("all")
     public List<Visit> getAllVisits() {
@@ -72,7 +74,7 @@ public class VisitController {
 
     @GetMapping("graph/{graphId}")
     public long getTotalVisitorsByGraphId(@PathVariable("graphId") Long graphId) {
-        return visitRepository.countByLink_Graph_GraphId(graphId);
+        return visitRepository.countByGraphLink_GraphContent_ContentId(graphId);
     }
 
     @GetMapping("date/{start}/{end}")

@@ -29,5 +29,5 @@ public interface VisitRepository extends JpaRepository<Visit, Long> {
 
     long countByWasAdminIsTrue();
 
-    long countByLink_Graph_GraphId(Long graphId);
+    long countByGraphLink_GraphContent_ContentId(Long graphId);
 }

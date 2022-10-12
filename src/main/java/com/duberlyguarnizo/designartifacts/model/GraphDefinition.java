@@ -1,12 +1,13 @@
 package com.duberlyguarnizo.designartifacts.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -15,10 +16,11 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-public class Graph {
+public class GraphDefinition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long graphId;
+    @NotNull
     private String name;
     private String version;
     private String svg;
@@ -30,17 +32,17 @@ public class Graph {
     @JoinColumn(name = "fk_update_admin_id")
     @ToString.Exclude
     private Admin updateAdmin;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime creationDate;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updateDate;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Graph graph = (Graph) o;
-        return graphId != null && Objects.equals(graphId, graph.graphId);
+        GraphDefinition graphDefinition = (GraphDefinition) o;
+        return graphId != null && Objects.equals(graphId, graphDefinition.graphId);
     }
 
     @Override

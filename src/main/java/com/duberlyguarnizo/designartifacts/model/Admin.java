@@ -1,12 +1,13 @@
 package com.duberlyguarnizo.designartifacts.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,14 +20,19 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
+    @NotNull
     private String name;
+    @Column(unique = true)
+    @NotNull
     private String email;
+    @NotNull
     private String passwordHash;
     private boolean active;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime creationDate;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updateDate;
+    @Column(columnDefinition="TIMESTAMP")
     private LocalDateTime lastLoginDate;
 
     @Override

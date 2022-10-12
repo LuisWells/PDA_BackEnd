@@ -1,12 +1,12 @@
 package com.duberlyguarnizo.designartifacts.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,13 +19,19 @@ public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long visitId;
-    private String ip;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime visitDateTime;
     private double duration;
     private boolean cookieExists;
     private LocalDateTime lastVisitDateTime;
-    private String userAgent;
+    //Using IpRegistry free tier service in client side
+    private String country;
+    private String city;
+    private String browser;
+    private String browserVersion;
+    private String device;
+    private String os;
+
     private int visitCount;
     private boolean wasAdmin;
     private boolean hadInteractions;
@@ -39,7 +45,7 @@ public class Visit {
     @OneToOne
     @JoinColumn(name = "fk_link_id")
     @ToString.Exclude
-    private Link link;
+    private GraphLink graphLink;
 
     @Override
     public boolean equals(Object o) {

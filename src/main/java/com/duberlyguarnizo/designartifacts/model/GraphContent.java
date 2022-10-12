@@ -1,12 +1,13 @@
 package com.duberlyguarnizo.designartifacts.model;
 
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -15,20 +16,21 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-public class Content {
+public class GraphContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentId;
+    @NotNull
     private String contentJson;
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime creationDate;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Content content = (Content) o;
-        return contentId != null && Objects.equals(contentId, content.contentId);
+        GraphContent graphContent = (GraphContent) o;
+        return contentId != null && Objects.equals(contentId, graphContent.contentId);
     }
 
     @Override
