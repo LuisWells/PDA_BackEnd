@@ -40,7 +40,7 @@ public class SvgParser {
         return contenidoTags;
     }
 
-    public void parse(String contenidosJson) {
+    public String parse(String contenidosJson) {
 
 
         String textVariablesString = svgContent.split("@@@")[1];
@@ -59,10 +59,10 @@ public class SvgParser {
         }
 
         //reemplazo de variables de contenido con los respectivos valores
-        reemplazarVariables(contenidosJson, textVariables);
+        return reemplazarVariables(contenidosJson, textVariables);
     }
 
-    private void reemplazarVariables(String contenidosJson, List<TextVariable> textVariables) {
+    private String reemplazarVariables(String contenidosJson, List<TextVariable> textVariables) {
         ObjectMapper objectMapper = new ObjectMapper();
         String contenidosJsonData = contenidosJson.trim().substring(1, contenidosJson.trim().length() - 1);
         log.info(contenidosJsonData);
@@ -87,7 +87,7 @@ public class SvgParser {
         } catch (Exception e) {
             log.severe(e.getMessage());
         }
-        log.warning(svgContentNoFirstLine);
+        return svgContentNoFirstLine;
     }
 
     static class TextVariable {

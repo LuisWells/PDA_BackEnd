@@ -2,6 +2,8 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.model.Visit;
 import com.duberlyguarnizo.designartifacts.repository.VisitRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,8 +25,12 @@ public class VisitController {
     }
 
     @GetMapping("/id/{id}")
-    public Visit getVisitById(@PathVariable("id") Long id) {
-        return visitRepository.findById(id).orElse(null);
+    public ResponseEntity<Visit> getVisitById(@PathVariable("id") Long id) {
+        Visit result = visitRepository.findById(id).orElse(null);
+        if (result == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("downloaded-graphs")
