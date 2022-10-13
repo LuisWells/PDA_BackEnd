@@ -23,12 +23,13 @@ public class GraphDefinition {
     @NotNull
     private String name;
     private String version;
+    @Column(columnDefinition = "TEXT")
     private String svg;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_creation_admin_id")
     @ToString.Exclude
     private Admin creationAdmin;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_update_admin_id")
     @ToString.Exclude
     private Admin updateAdmin;

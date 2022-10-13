@@ -111,4 +111,42 @@ public class LinkController {
         return new ResponseEntity<>(svgParser.parse(contentString), HttpStatus.OK);
     }
 
+    @Operation(summary = "Actualizar un link de gráfico mediante PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "link de gráfico actualizado",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GraphLink.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado al link con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (tal vez los Id no corresponden?)",
+                    content = @Content)})
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GraphLink> updateGraphContent(@PathVariable("id") Long linkId, @RequestBody GraphLink content) {
+        if (linkRepository.findById(linkId).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!linkId.equals(content.getLinkId())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        linkRepository.save(content);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Borrar un link de gráfico mediante DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Link de gráfico con id indicado borrado",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GraphLink.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado al link con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (Tal vez los Id no se corresponden?)",
+                    content = @Content)})
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<GraphLink> deleteGraphContent(@PathVariable("id") Long id) {
+        if (linkRepository.findById(id).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        linkRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 }

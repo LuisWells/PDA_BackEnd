@@ -85,4 +85,42 @@ public class ContentController {
         GraphContent result = contentRepository.save(graphContent);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
+
+    @Operation(summary = "Actualizar un contenido de gráfico mediante PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contenido de gráfico actualizado",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GraphContent.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado al contenido de gráfico con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (tal vez los Id no corresponden?)",
+                    content = @Content)})
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GraphContent> updateGraphContent(@PathVariable("id") Long contentId, @RequestBody GraphContent content) {
+        if (contentRepository.findById(contentId).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!contentId.equals(content.getContentId())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        contentRepository.save(content);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Borrar un contenido de gráfico mediante DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Contenido de gráfico con id indicado borrado",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GraphContent.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado al contenido de gráfico con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (Tal vez los Id no se corresponden?)",
+                    content = @Content)})
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<GraphContent> deleteGraphContent(@PathVariable("id") Long id) {
+        if (contentRepository.findById(id).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        contentRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

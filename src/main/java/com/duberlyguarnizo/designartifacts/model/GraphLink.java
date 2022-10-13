@@ -20,10 +20,10 @@ public class GraphLink {
     private Long linkId;
     @NotNull
     private String path;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_graph_id")
     private GraphDefinition graphDefinition;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_content_id")
     private GraphContent graphContent;
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)

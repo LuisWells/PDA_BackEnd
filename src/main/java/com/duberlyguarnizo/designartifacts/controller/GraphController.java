@@ -1,5 +1,6 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
+import com.duberlyguarnizo.designartifacts.model.GraphContent;
 import com.duberlyguarnizo.designartifacts.model.GraphDefinition;
 import com.duberlyguarnizo.designartifacts.repository.GraphRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -119,6 +120,44 @@ public class GraphController {
     public ResponseEntity<GraphDefinition> createGraph(@RequestBody GraphDefinition graphDefinition) {
         GraphDefinition result = graphRepository.save(graphDefinition);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Actualizar una definición de gráfico mediante PUT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Definición de gráfico actualizada",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GraphContent.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado la definición de gráfico con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (tal vez los Id no corresponden?)",
+                    content = @Content)})
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<GraphDefinition> updateDefinition(@PathVariable("id") Long definitionId, @RequestBody GraphDefinition definition) {
+        if (graphRepository.findById(definitionId).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!definitionId.equals(definition.getGraphId())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        graphRepository.save(definition);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Borrar una definición de gráfico mediante DELETE")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Definición de gráfico con id indicado borrada",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = GraphDefinition.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado la definición de gráfico con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (tal vez Ids no se corresponden?)",
+                    content = @Content)})
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<GraphDefinition> deleteDefinition(@PathVariable("id") Long id) {
+        if (graphRepository.findById(id).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        graphRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

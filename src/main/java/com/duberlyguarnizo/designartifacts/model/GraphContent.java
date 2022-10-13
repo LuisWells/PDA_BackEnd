@@ -7,7 +7,6 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -20,7 +19,7 @@ public class GraphContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentId;
-    @NotNull
+    @Column(columnDefinition = "TEXT")
     private String contentJson;
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime creationDate;

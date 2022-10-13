@@ -33,7 +33,7 @@ public class AdminController {
     @GetMapping("/all")
     public ResponseEntity<List<Admin>> getAllAdmins() {
         List<Admin> result = adminRepository.findAll();
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -63,8 +63,8 @@ public class AdminController {
                     content = @Content)})
     @GetMapping("/active")
     public ResponseEntity<List<Admin>> getActiveAdmins() {
-        List<Admin> result= adminRepository.findByActiveIsTrue();
-        if(result.isEmpty()) {
+        List<Admin> result = adminRepository.findByActiveIsTrue();
+        if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -80,7 +80,7 @@ public class AdminController {
     @GetMapping("/inactive")
     public ResponseEntity<List<Admin>> getInactiveAdmins() {
         List<Admin> result = adminRepository.findByActiveIsFalse();
-        if(result.isEmpty()) {
+        if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -96,8 +96,8 @@ public class AdminController {
                     content = @Content)})
     @GetMapping("/name/{name}")
     public ResponseEntity<List<Admin>> getAdminsByName(@PathVariable("name") String name) {
-        List<Admin> result= adminRepository.findByNameContaining(name);
-        if(result.isEmpty()) {
+        List<Admin> result = adminRepository.findByNameContaining(name);
+        if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -113,5 +113,42 @@ public class AdminController {
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
         adminRepository.save(admin);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "Actualizar un administrador")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Administrador actualizado",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Admin.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado al administrador con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (tal vez Ids no se corresponden?)",
+                    content = @Content)})
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Admin> updateAdmin(@PathVariable("id") Long adminId, @RequestBody Admin admin) {
+        if (adminRepository.findById(adminId).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        if (!adminId.equals(admin.getAdminId())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        adminRepository.save(admin);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @Operation(summary = "Borrar un administrador")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Administrador con id indicado borrado",
+                    content = {@Content(mediaType = "application/json", schema = @Schema(implementation = Admin.class))}),
+            @ApiResponse(responseCode = "404", description = "No se ha encontrado al administrador con el id indicado",
+                    content = @Content),
+            @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente (headers mal formados?)",
+                    content = @Content)})
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Admin> deleteAdmin(@PathVariable("id") Long id) {
+        if (adminRepository.findById(id).orElse(null) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        adminRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
