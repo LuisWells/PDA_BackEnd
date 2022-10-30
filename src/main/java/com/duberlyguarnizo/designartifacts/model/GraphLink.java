@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,14 +20,23 @@ public class GraphLink {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long linkId;
-    @NotNull
+
+    @NotBlank
     private String path;
+
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_graph_id")
     private GraphDefinition graphDefinition;
+
+    @ToString.Exclude
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fk_content_id")
     private GraphContent graphContent;
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+
+    @CreationTimestamp
     private LocalDateTime creationDate;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDate;
 }

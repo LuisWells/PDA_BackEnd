@@ -4,12 +4,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.Hibernate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -20,33 +22,29 @@ public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long adminId;
-    @NotNull
+
+    @NotBlank
     private String name;
+
     @Column(unique = true)
     @NotNull
+    @Email
     private String email;
+
     @NotNull
     private String passwordHash;
+
     private boolean active;
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
+
+    @CreationTimestamp
     private LocalDateTime creationDate;
-    @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+
+    @UpdateTimestamp
     private LocalDateTime updateDate;
-    @Column(columnDefinition="TIMESTAMP")
+
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime lastLoginDate;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Admin admin = (Admin) o;
-        return adminId != null && Objects.equals(adminId, admin.adminId);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }
 
 
