@@ -21,6 +21,7 @@ public class GraphDefinition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long graphId;
 
+    @Column(unique = true)
     @NotBlank
     private String name;
 

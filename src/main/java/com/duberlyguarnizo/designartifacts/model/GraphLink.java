@@ -22,6 +22,7 @@ public class GraphLink {
     private Long linkId;
 
     @NotBlank
+    @Column(unique = true)
     private String path;
 
     @ToString.Exclude
