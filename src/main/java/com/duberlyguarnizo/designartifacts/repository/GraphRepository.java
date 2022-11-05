@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface GraphRepository extends JpaRepository<GraphDefinition, Long> {
-    GraphDefinition findByName(String graphName);
+    List<GraphDefinition> findByName(String graphName);
 
     List<GraphDefinition> findByCreationAdmin_AdminId(Long adminId);
 
