@@ -1716,6 +1716,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 0.65s;
     -ms-transition-delay: 0.65s;
     transition-delay: 0.65s;
+    background-image: linear-gradient(to top, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
 }
 
 #main .thumb:nth-child(2) {
@@ -1723,6 +1724,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 0.8s;
     -ms-transition-delay: 0.8s;
     transition-delay: 0.8s;
+    background-image: linear-gradient(to right, #868f96 0%, #596164 100%);
 }
 
 #main .thumb:nth-child(3) {
@@ -1730,6 +1732,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 0.95s;
     -ms-transition-delay: 0.95s;
     transition-delay: 0.95s;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
 }
 
 #main .thumb:nth-child(4) {
@@ -1737,6 +1740,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 1.1s;
     -ms-transition-delay: 1.1s;
     transition-delay: 1.1s;
+    background-image: linear-gradient(to right, #a8caba 0%, #5d4157 100%);
 }
 
 #main .thumb:nth-child(5) {
@@ -1744,6 +1748,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 1.25s;
     -ms-transition-delay: 1.25s;
     transition-delay: 1.25s;
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%);
 }
 
 #main .thumb:nth-child(6) {
@@ -1751,6 +1756,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 1.4s;
     -ms-transition-delay: 1.4s;
     transition-delay: 1.4s;
+    background-image: linear-gradient(45deg, #874da2 0%, #c43a30 100%);
 }
 
 #main .thumb:nth-child(7) {
@@ -1758,6 +1764,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 1.55s;
     -ms-transition-delay: 1.55s;
     transition-delay: 1.55s;
+    background-image: linear-gradient(to right, #243949 0%, #517fa4 100%);
 }
 
 #main .thumb:nth-child(8) {
@@ -1765,6 +1772,8 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 1.7s;
     -ms-transition-delay: 1.7s;
     transition-delay: 1.7s;
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.25) 200%);
+    background-blend-mode: multiply;
 }
 
 #main .thumb:nth-child(9) {
@@ -1772,6 +1781,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 1.85s;
     -ms-transition-delay: 1.85s;
     transition-delay: 1.85s;
+    background-image: linear-gradient(-20deg, #616161 0%, #9bc5c3 100%);
 }
 
 #main .thumb:nth-child(10) {
@@ -1779,6 +1789,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 2s;
     -ms-transition-delay: 2s;
     transition-delay: 2s;
+    background-image: linear-gradient(-225deg, #2CD8D5 0%, #6B8DD6 48%, #8E37D7 100%);
 }
 
 #main .thumb:nth-child(11) {
@@ -1786,6 +1797,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 2.15s;
     -ms-transition-delay: 2.15s;
     transition-delay: 2.15s;
+    background-image: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
 }
 
 #main .thumb:nth-child(12) {
@@ -1793,6 +1805,7 @@ body.is-preload #main .thumb {
     -webkit-transition-delay: 2.3s;
     -ms-transition-delay: 2.3s;
     transition-delay: 2.3s;
+    background-image: linear-gradient(-225deg, #3D4E81 0%, #5753C9 48%, #6E7FF3 100%);
 }
 
 @media screen and (max-width: 1680px) {
@@ -2049,4 +2062,12 @@ body.is-preload #main .thumb {
 
 #footer .copyright a {
     color: inherit;
+}
+
+/*Custom CSS*/
+
+.center-content {
+    padding-top: 10em;
+    text-align: center;
+    justify-content: center;
 }

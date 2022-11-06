@@ -6,7 +6,7 @@
 
 (function ($) {
 
-    var $window = $(window),
+    const $window = $(window),
         $body = $('body'),
         $wrapper = $('#wrapper');
 
@@ -20,7 +20,7 @@
     });
 
     // Hack: Enable IE workarounds.
-    if (browser.name == 'ie')
+    if (browser.name === 'ie')
         $body.addClass('ie');
 
     // Touch?
@@ -38,7 +38,7 @@
         });
 
         // Prevent transitions/animations on resize.
-        var resizeTimeout;
+        let resizeTimeout;
 
         $window.on('resize', function () {
 
@@ -58,11 +58,11 @@
     $window.scrollTop(0);
 
     // Panels.
-    var $panels = $('.panel');
+    let $panels = $('.panel');
 
     $panels.each(function () {
 
-        var $this = $(this),
+        let $this = $(this),
             $toggles = $('[href="#' + $this.attr('id') + '"]'),
             $closer = $('<div class="closer" />').appendTo($this);
 
@@ -143,7 +143,7 @@
     $window
         .on('keyup', function (event) {
 
-            if (event.keyCode == 27
+            if (event.keyCode === 27
                 && $body.hasClass('content-active')) {
 
                 event.preventDefault();
@@ -156,17 +156,17 @@
         });
 
     // Header.
-    var $header = $('#header');
+    const $header = $('#header');
 
     // Links.
     $header.find('a').each(function () {
 
-        var $this = $(this),
+        let $this = $(this),
             href = $this.attr('href');
 
         // Internal link? Skip.
         if (!href
-            || href.charAt(0) == '#')
+            || href.charAt(0) === '#')
             return;
 
         // Redirect on click.
@@ -185,14 +185,14 @@
     });
 
     // Footer.
-    var $footer = $('#footer');
+    const $footer = $('#footer');
 
     // Copyright.
     // This basically just moves the copyright line to the end of the *last* sibling of its current parent
     // when the "medium" breakpoint activates, and moves it back when it deactivates.
     $footer.find('.copyright').each(function () {
 
-        var $this = $(this),
+        let $this = $(this),
             $parent = $this.parent(),
             $lastParent = $parent.parent().children().last();
 
@@ -207,17 +207,17 @@
     });
 
     // Main.
-    var $main = $('#main');
+    const $main = $('#main');
 
     // Thumbs.
     $main.children('.thumb').each(function () {
 
-        var $this = $(this),
+        let $this = $(this),
             $image = $this.find('.image'), $image_img = $image.children('img'),
             x;
 
         // No image? Bail.
-        if ($image.length == 0)
+        if ($image.length === 0)
             return;
 
         // Image.
@@ -241,7 +241,7 @@
         baseZIndex: 20000,
         caption: function ($a) {
 
-            var s = '';
+            let s = '';
 
             $a.nextAll().each(function () {
                 s += this.outerHTML;
@@ -262,7 +262,8 @@
         popupHeight: 150,
         popupLoaderText: '',
         popupSpeed: 300,
-        popupWidth: 150,
+        popupWidth: 250,
+        popupTextColor: '#000000',
         selector: '.thumb > a.image',
         usePopupCaption: true,
         usePopupCloser: true,
@@ -273,7 +274,7 @@
         windowMargin: 50
     });
 
-    // Hack: Set margins to 0 when 'xsmall' activates.
+    // Hack: Set margins to 0 when 'xSmall' activates.
     breakpoints.on('<=xsmall', function () {
         $main[0]._poptrox.windowMargin = 0;
     });

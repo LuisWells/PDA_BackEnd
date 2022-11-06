@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-    <title>PDA: Gráficos Estandarizados</title>
+    <title>PDA: Admin Login</title>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
@@ -26,42 +26,25 @@
     </header>
 
     <!-- Main -->
-    <div id="main">
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/1.png}"><img alt="" th:src="@{/images/thumbs/1.png}"/></a>
-            <h2>FODA</h2>
-            <p>Fortalezas, oportunidades, debilidades y amenazas.</p>
-        </article>
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/2.png}"><img alt="" th:src="@{/images/thumbs/2.png}"/></a>
-            <h2>Lean Canvas</h2>
-            <p>Identifica las principales variables de un proyecto rápido.</p>
-        </article>
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/3.png}"><img alt="" th:src="@{/images/thumbs/3.png}"/></a>
-            <h2>Ishikawa</h2>
-            <p>Excelente forma de ver las causas y efectos.</p>
-        </article>
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/4.png}"><img alt="" th:src="@{/images/thumbs/4.png}"/></a>
-            <h2>Diamante de Porter</h2>
-            <p>Identifica lo que te hace competitivo.</p>
-        </article>
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/5.png}"><img alt="" th:src="@{/images/thumbs/5.png}"/></a>
-            <h2>Listado simple</h2>
-            <p>Algunas veces no necesitas complicarte tanto.</p>
-        </article>
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/6.png}"><img alt="" th:src="@{/images/thumbs/6.png}"/></a>
-            <h2>Pirámide organizacional</h2>
-            <p>5 escalones... ¿para que más?</p>
-        </article>
-        <article class="thumb">
-            <a class="image" th:href="@{/images/fulls/7.png}"><img alt="" th:src="@{/images/thumbs/7.png}"/></a>
-            <h2>FODA cruzado</h2>
-            <p>Variables que se cruzan para formar campos nuevos.</p>
-        </article>
+    <div class="center-content" id="main">
+        <section>
+            <h2>Inicio de sesión</h2>
+            <p>(aquí es donde la magia sucede...)</p>
+            <form action="#" method="post">
+                <div class="fields">
+                    <div class="field half">
+                        <input id="login-user" name="username" placeholder="Nombre de usuario" type="text"/>
+                    </div>
+                    <div class="field half">
+                        <input id="login-password" name="password" placeholder="Contraseña" type="text"/>
+                    </div>
+
+                </div>
+                <ul class="actions">
+                    <li><input class="primary" type="submit" value="Iniciar sesión"/></li>
+                </ul>
+            </form>
+        </section>
     </div>
 
     <!-- Footer -->
@@ -97,7 +80,8 @@
                                 <input id="email" name="email" placeholder="Email" type="text"/>
                             </div>
                             <div class="field">
-                                <textarea id="message" name="message" placeholder="Critica constructiva (o propuesta de chiste)"
+                                <textarea id="message" name="message"
+                                          placeholder="Critica constructiva (o propuesta de chiste)"
                                           rows="4"></textarea>
                             </div>
                         </div>
