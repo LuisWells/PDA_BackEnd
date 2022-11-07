@@ -14,13 +14,12 @@ public class ApiSecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/content/**", "/api/graph/**", "/api/link/**")
-                .permitAll()
+                .antMatchers("/api/admin/**", "/api/visit/**", "/admin/**").hasRole("API USER")
+                .anyRequest().authenticated()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/admin/**", "/api/visit/**").hasRole("API USER")
-                .anyRequest()
-                .authenticated()
+                .antMatchers("/api/content/**", "/api/graph/**", "/api/link/**", "/**")
+                .permitAll()
                 .and()
                 .httpBasic();
 
