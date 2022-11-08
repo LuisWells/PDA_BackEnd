@@ -89,7 +89,8 @@
             <div>
                 <section>
                     <h2>¿Nuestros chistes te parecen malos? Contactanos</h2>
-                    <form action="#" method="post">
+                    <form action="/comentarios" enctype="application/x-www-form-urlencoded" method="post"
+                          th:action="@{/comentarios}">
                         <div class="fields">
                             <div class="field half">
                                 <input id="name" name="name" placeholder="Nombre" type="text"/>
@@ -98,7 +99,8 @@
                                 <input id="email" name="email" placeholder="Email" type="text"/>
                             </div>
                             <div class="field">
-                                <textarea id="message" name="message" placeholder="Critica constructiva (o propuesta de chiste)"
+                                <textarea id="message" name="message"
+                                          placeholder="Critica constructiva (o propuesta de chiste)"
                                           rows="4"></textarea>
                             </div>
                         </div>

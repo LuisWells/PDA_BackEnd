@@ -1,14 +1,26 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
+import com.duberlyguarnizo.designartifacts.model.Comment;
+import com.duberlyguarnizo.designartifacts.service.EmailService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SiteController {
+    private static final Logger logger = LoggerFactory.getLogger(SiteController.class);
+
+    private final EmailService emailService;
+
+    public SiteController(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
     @RequestMapping("/")
     public String index(Model model) {
         return "index";
@@ -24,9 +36,16 @@ public class SiteController {
         return "admin";
     }
 
-    @PostMapping("/comentarios")
-    public void processComments(@RequestBody String  content) {
-        //content tiene nombre, correo y comentario como atributos
-        //procesar comentario:enviar correo con datos a duberlygfr@gmail.com
+    @PostMapping(path = "/comentarios", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String processComments(Comment comment) {
+        logger.warn("--------------------------------------------");
+        logger.warn(comment.toString());
+        logger.warn("--------------------------------------------");
+
+        String emailFrom = comment.getEmail();
+        String emailContent = comment.getMessage();
+        String emailSubject = comment.getName();
+        emailService.send(emailFrom, "duberlygfr@gmail.com", emailSubject, emailContent);
+        return "redirect:index"; //TODO:create web "redirect:/comment/thanks";
     }
 }
