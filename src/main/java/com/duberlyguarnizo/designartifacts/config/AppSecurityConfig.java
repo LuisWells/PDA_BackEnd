@@ -9,19 +9,32 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class ApiSecurityConfiguration {
+public class AppSecurityConfig {
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/admin/**", "/api/visit/**", "/admin/**").hasRole("API USER")
-                .anyRequest().authenticated()
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/content/**", "/api/graph/**", "/api/link/**", "/**")
+        http.cors().disable();
+        http.csrf().disable();
+        http.authorizeRequests()
+                .mvcMatchers("/"
+                        , "index"
+                        , "/css/**"
+                        , "/js/*"
+                        , "/images/**"
+                        , "/webfonts/*"
+                        , "api/content/*"
+                        , "api/graph/*"
+                        , "api/link/*"
+                        , "/login*"
+                        , "/comentarios*"
+                        , "/error").permitAll()
+                .anyRequest().authenticated();
+        http.formLogin()
                 .permitAll()
-                .and()
-                .httpBasic();
+                .loginPage("/login");
+        http.logout()
+                .permitAll();
+
 
         return http.build();
     }

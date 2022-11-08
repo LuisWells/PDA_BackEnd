@@ -1,10 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
     <title>404 Error!</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <noscript>
+        <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
+    </noscript>
 </head>
-<body>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a th:href="@{/}"><strong>Planning Design Artifacts</strong> gráficos estandarizados para
+            publicaciones</a></h1>
+        <nav>
+            <ul>
+                <li><a class="icon solid fa-info-circle" href="#footer">Nosotros</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main -->
+    <div class="center-content" id="main">
+        <section>
+            <h2>Esta página no existe...</h2>
+            <p>Estás más perdido que huevo en ceviche...</p>
+            <ul class="actions">
+                <button class="primary">Regresar</button>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="panel" id="footer">
+        <div class="inner split">
+            <div>
+                <section>
+                    <h2>Grupo 3</h2>
+                    <p>¡Envidia, nos tienen envidia!<br>
+                        Somos estudiantes del sexto ciclo (en promedio) con ganas de aprobar un curso, inspirados en
+                        nuestra estimada líder y maestra. Nuestro conocimiento, unido, casi suma al de un profesional
+                        completo.</p>
+                </section>
+                <section>
+                    <h2>Revisa el código...</h2>
+                    <ul class="icons">
+                        <li><a class="icon brands fa-github" href="#"><span class="label">GitHub</span></a></li>
+                    </ul>
+                </section>
+                <p class="copyright">
+                    ¿Eliminar artefactos, banear usuarios?: <a href="/login">admin login</a>.
+                </p>
+            </div>
+            <div>
+                <section>
+                    <h2>¿Nuestros chistes te parecen malos? Contactanos</h2>
+                    <form action="#" method="post">
+                        <div class="fields">
+                            <div class="field half">
+                                <input id="name" name="name" placeholder="Nombre" type="text"/>
+                            </div>
+                            <div class="field half">
+                                <input id="email" name="email" placeholder="Email" type="text"/>
+                            </div>
+                            <div class="field">
+                                <textarea id="message" name="message"
+                                          placeholder="Critica constructiva (o propuesta de chiste)"
+                                          rows="4"></textarea>
+                            </div>
+                        </div>
+                        <ul class="actions">
+                            <li><input class="primary" type="submit" value="Enviar"/></li>
+                            <li><input type="reset" value="Borrar"/></li>
+                        </ul>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.poptrox.min.js}"></script>
+<script th:src="@{/js/browser.min.js}"></script>
+<script th:src="@{/js/breakpoints.min.js}"></script>
+<script th:src="@{/js/util.js}"></script>
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>
