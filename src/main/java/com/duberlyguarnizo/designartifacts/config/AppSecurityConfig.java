@@ -30,8 +30,11 @@ public class AppSecurityConfig {
                         , "/error").permitAll()
                 .anyRequest().authenticated();
         http.formLogin()
+                .loginPage("/login")
                 .permitAll()
-                .loginPage("/login");
+                .defaultSuccessUrl("/admin", true)
+                .and()
+                .rememberMe();
         http.logout()
                 .permitAll();
 
