@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class AppSecurityConfig {
@@ -16,28 +19,27 @@ public class AppSecurityConfig {
         http.cors().disable();
         http.csrf().disable();
         http.authorizeRequests()
-                .mvcMatchers("/"
-                        , "index"
-                        , "/css/**"
-                        , "/js/*"
-                        , "/images/**"
-                        , "/webfonts/*"
-                        , "api/content/*"
-                        , "api/graph/*"
-                        , "api/link/*"
-                        , "/login*"
-                        , "/comentarios*"
-                        , "/error").permitAll()
-                .anyRequest().authenticated();
+                .mvcMatchers("/admin*", "api/visit/*", "api/admin/*").authenticated()
+                .anyRequest().permitAll(); //dangerous! Can lead to security issues with API endpoints
+
+
         http.formLogin()
                 .loginPage("/login")
                 .permitAll()
                 .defaultSuccessUrl("/admin", true)
                 .and()
-                .rememberMe();
-        http.logout()
-                .permitAll();
+                .rememberMe()
+                .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
+                .key("PeterCastleIsNotMyPresident");
 
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .logoutSuccessUrl("/login")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID", "remember-me")
+                .permitAll();
 
         return http.build();
     }
