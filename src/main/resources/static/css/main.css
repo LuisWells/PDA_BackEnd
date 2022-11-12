@@ -801,7 +801,7 @@ ol li {
 }
 
 ul {
-    list-style: disc;
+    list-style: none;
     margin: 0 0 2em 0;
     padding-left: 1em;
 }
@@ -2071,4 +2071,26 @@ body.is-preload #main .thumb {
     padding-top: 10em;
     text-align: center;
     justify-content: center;
+}
+
+.tab-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    justify-content: space-evenly;
+}
+
+.tab-nav li {
+    display: inline-block;
+    margin: 0 1em 0 1em;
+    padding: 0;
+}
+
+.navigation {
+    width: 100%;
+}
+
+.logout {
+    float: right;
+    margin-right: 1em;
 }

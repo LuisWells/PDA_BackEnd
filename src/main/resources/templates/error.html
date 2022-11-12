@@ -27,11 +27,12 @@
     <!-- Main -->
     <div class="center-content" id="main">
         <section>
+            <i class="fa fa-sad-cry fa-10x"></i>
             <h2>Esta página no existe...</h2>
             <p>Estás más perdido que huevo en ceviche...</p>
-            <ul class="actions">
-                <button class="primary">Regresar</button>
-            </ul>
+            <div class="actions">
+                <a class="button primary" th:href="@{/}">Regresar</a>
+            </div>
         </section>
     </div>
 
@@ -53,7 +54,7 @@
                     </ul>
                 </section>
                 <p class="copyright">
-                    ¿Eliminar artefactos, banear usuarios?: <a href="/login">admin login</a>.
+                    ¿Eliminar artefactos, banear usuarios?: <a th:href="@{/admin}">admin panel</a>.
                 </p>
             </div>
             <div>
