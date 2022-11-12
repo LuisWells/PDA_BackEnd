@@ -2,6 +2,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.model.GraphContent;
 import com.duberlyguarnizo.designartifacts.repository.ContentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
@@ -12,8 +13,9 @@ import java.util.Optional;
 public class ContentController {
     private final ContentRepository contentRepository;
 
+    @Autowired
     public ContentController(ContentRepository contentRepository) {
-        this.contentRepository = contentRepository; //no Autowired needed
+        this.contentRepository = contentRepository;
     }
 
 

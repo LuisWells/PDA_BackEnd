@@ -1,8 +1,10 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
+import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
 import com.duberlyguarnizo.designartifacts.model.Admin;
 import com.duberlyguarnizo.designartifacts.repository.AdminRepository;
 import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -12,9 +14,12 @@ import java.util.List;
 @Log
 public class AdminController {
     private final AdminRepository adminRepository;
+    private final PdaPasswordEncoder pdaPasswordEncoder;
 
-    public AdminController(AdminRepository adminRepository) {
+    @Autowired
+    public AdminController(AdminRepository adminRepository, PdaPasswordEncoder passwordEncoder) {
         this.adminRepository = adminRepository;
+        this.pdaPasswordEncoder = passwordEncoder;
     }
 
     public List<Admin> getAllAdmins() {
@@ -43,6 +48,8 @@ public class AdminController {
 
 
     public Admin createAdmin(Admin admin) {
+        admin.setPasswordHash(pdaPasswordEncoder.bCryptPasswordEncoder().encode(admin.getPasswordHash()));
+        System.out.println(admin.getPasswordHash());
         return adminRepository.save(admin);
     }
 
@@ -53,6 +60,7 @@ public class AdminController {
         }
         return adminRepository.save(admin);
     }
+    //TODO: implement admin change password
 
 
     public void deleteAdmin(Long id) {

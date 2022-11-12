@@ -1,17 +1,20 @@
 package com.duberlyguarnizo.designartifacts.config;
 
+import com.duberlyguarnizo.designartifacts.service.AppUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.concurrent.TimeUnit;
 
 @Configuration
+@EnableWebSecurity
 public class AppSecurityConfig {
 
     @Bean
@@ -45,12 +48,15 @@ public class AppSecurityConfig {
     }
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails user = User
-                .withUsername("apiUser")
-                .password("{noop}password")
-                .roles("API USER")
+    public AuthenticationManager authManager(HttpSecurity http
+            , PdaPasswordEncoder pdaPasswordEncoder
+            , AppUserDetailService appUserDetailService)
+            throws Exception {
+        return http
+                .getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(appUserDetailService)
+                .passwordEncoder(pdaPasswordEncoder.bCryptPasswordEncoder())
+                .and()
                 .build();
-        return new InMemoryUserDetailsManager(user);
     }
 }
