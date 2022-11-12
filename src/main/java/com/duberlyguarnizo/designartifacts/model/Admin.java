@@ -27,11 +27,11 @@ public class Admin {
     private String name;
 
     @Column(unique = true)
-    @NotNull
+    @NotBlank
     @Email
     private String email;
 
-    @NotNull
+    @NotBlank
     private String passwordHash;
 
     private boolean active;

@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class LinkAPIController {
     private final ContentRepository contentRepository;
     private final GraphRepository graphRepository;
 
+    @Autowired
     public LinkAPIController(LinkRepository linkRepository, ContentRepository contentRepository, GraphRepository graphRepository) {
         this.linkRepository = linkRepository;
         this.contentRepository = contentRepository;

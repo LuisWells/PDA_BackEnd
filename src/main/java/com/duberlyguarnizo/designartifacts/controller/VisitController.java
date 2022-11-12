@@ -2,6 +2,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.model.Visit;
 import com.duberlyguarnizo.designartifacts.repository.VisitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.List;
 public class VisitController {
     private final VisitRepository visitRepository;
 
+    @Autowired
     public VisitController(VisitRepository visitRepository) {
         this.visitRepository = visitRepository;
     }
@@ -82,7 +84,6 @@ public class VisitController {
                 end.plusDays(1)
                         .atStartOfDay());
     }
-
 
     public Visit createVisit(Visit visit) {
         return visitRepository.save(visit);

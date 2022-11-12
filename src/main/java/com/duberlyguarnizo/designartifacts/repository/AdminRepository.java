@@ -13,4 +13,6 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
     List<Admin> findByActiveIsTrue();
 
     List<Admin> findByActiveIsFalse();
+
+    Admin findFirstByEmail(String email);
 }

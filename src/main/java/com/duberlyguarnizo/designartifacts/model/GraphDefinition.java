@@ -31,12 +31,12 @@ public class GraphDefinition {
     @NotBlank
     private String svg;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_creation_admin_id")
     @ToString.Exclude
     private Admin creationAdmin;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_update_admin_id")
     @ToString.Exclude
     private Admin updateAdmin;

@@ -7,6 +7,7 @@ import com.duberlyguarnizo.designartifacts.repository.ContentRepository;
 import com.duberlyguarnizo.designartifacts.repository.GraphRepository;
 import com.duberlyguarnizo.designartifacts.repository.LinkRepository;
 import com.duberlyguarnizo.designartifacts.util.SvgParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class LinkController {
     private final ContentRepository contentRepository;
     private final GraphRepository graphRepository;
 
+    @Autowired
     public LinkController(LinkRepository linkRepository, ContentRepository contentRepository, GraphRepository graphRepository) {
         this.linkRepository = linkRepository;
         this.contentRepository = contentRepository;

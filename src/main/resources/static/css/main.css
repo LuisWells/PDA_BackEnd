@@ -2068,8 +2068,7 @@ body.is-preload #main .thumb {
 /*Custom CSS*/
 
 .center-content {
-    padding-top: 10em;
-    text-align: center;
+    padding-top: 1em;
     justify-content: center;
 }
 
@@ -2093,4 +2092,32 @@ body.is-preload #main .thumb {
 .logout {
     float: right;
     margin-right: 1em;
+}
+
+.tag {
+    display: inline-block;
+    border-radius: 3px;
+    padding: .2em .5em .3em;
+    border-radius: 2px;
+    background: #454e56;
+    color: #b2becd;
+    font-weight: 600;
+    margin: .25em .1em
+}
+
+.tag-active {
+    background: #41b883;
+    color: #35495e
+}
+
+.tag-inactive {
+    color: #fff;
+    background: #ff3e00
+}
+
+.tag-sm {
+    font-size: .7em;
+    display: inline-block;
+    letter-spacing: .15ch;
+    font-weight: 400
 }

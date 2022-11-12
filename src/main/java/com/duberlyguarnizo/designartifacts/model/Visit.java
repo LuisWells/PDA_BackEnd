@@ -42,7 +42,7 @@ public class Visit {
     private boolean clickedDownloadGraph;
     private boolean fromShareLink;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "fk_link_id")
     @ToString.Exclude
     private GraphLink graphLink;

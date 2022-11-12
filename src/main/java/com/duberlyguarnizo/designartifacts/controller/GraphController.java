@@ -2,6 +2,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.model.GraphDefinition;
 import com.duberlyguarnizo.designartifacts.repository.GraphRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
 public class GraphController {
     private final GraphRepository graphRepository;
 
+    @Autowired
     public GraphController(GraphRepository graphRepository) {
         this.graphRepository = graphRepository;
     }

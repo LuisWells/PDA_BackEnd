@@ -30,18 +30,36 @@
             <a class="button primary logout" th:href="@{/logout}">Cerrar Sesión</a>
         </div>
         <div class="center-content">
-            <h1>Panel de administración</h1>
-            <p>Utiliza las opciones de abajo para revisar el contenido actual de la base de datos.</p>
+            <h1>Listado de Usuarios Administradores</h1>
+            <p>La tabla de abajo muestra el listado de cada administrador. Utiliza los botones correspondientes para
+                modificarlos.</p>
 
         </div>
-        <div class="tab-nav">
-            <ul>
-                <li><a class="button" th:href="@{/admin/users}">Usuarios</a></li>
-                <li><a class="button" th:href="@{/admin/contents}">contenidos</a></li>
-                <li><a class="button" th:href="@{/admin/graphs}">Gráficos</a></li>
-                <li><a class="button" th:href="@{/admin/links}">Links</a></li>
-                <li><a class="button" th:href="@{/admin/visits}">Visitas</a></li>
-            </ul>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Estado</th>
+                    <th>Fecha de creación</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${users.isEmpty()}">
+                    <td colspan="4"> No hay usuarios registrados</td>
+                </tr>
+                <tr th:each="user : ${users}">
+                    <td><span th:text="${user.name}">Nombre</span></td>
+                    <td><span th:text="${user.email}">Email</span></td>
+                    <td><span class="tag tag-active tag-sm" th:if="${user.active==true}">&nbsp;Activo&nbsp;</span>
+                        <span class="tag tag-inactive tag-sm" th:if="${user.active==false}">Inactivo</span></td>
+                    <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Fecha de creación </span>
+                    </td>
+                    <td><a href="#">Editar</a></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
