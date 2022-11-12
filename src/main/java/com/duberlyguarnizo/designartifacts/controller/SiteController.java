@@ -57,8 +57,12 @@ public class SiteController {
         String emailContent = comment.getMessage();
         String emailSubject = comment.getName();
         emailService.send(emailFrom, "duberlygfr@gmail.com", emailSubject, emailContent);
-        return "redirect:index";
-        //TODO: create web redirect comment thanks;
+        return "redirect:thanks";
+    }
+
+    @GetMapping("/thanks")
+    public String thanks() {
+        return "thanks";
     }
 
     @GetMapping("/admin/users")
@@ -70,12 +74,12 @@ public class SiteController {
     @GetMapping("/sample-user")
     public String sampleUser() {
         Admin testAdmin = new Admin();
-        testAdmin.setEmail("noemitimana@gmail.com");
+        testAdmin.setEmail("luisdaniel@gmail.com");
         testAdmin.setPasswordHash(
                 pdaPasswordEncoder
                         .bCryptPasswordEncoder()
-                        .encode("1801"));
-        testAdmin.setName("Noemi Timana");
+                        .encode("luis"));
+        testAdmin.setName("Luis Daniel");
         testAdmin.setActive(true);
         System.out.println(testAdmin.toString());
         testAdmin = adminRepository.save(testAdmin);

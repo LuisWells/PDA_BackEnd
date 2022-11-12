@@ -991,11 +991,15 @@ ul.icons li .icon:before {
 .table-wrapper {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
+    justify-content: center;
+    display: flex;
 }
 
 table {
-    margin: 0 0 2em 0;
-    width: 100%;
+    text-align: left;
+    display: block;
+    overflow-x: auto;
+
 }
 
 table tbody tr {
@@ -1272,7 +1276,7 @@ table.alt tfoot {
     background-image: -webkit-linear-gradient(to top, rgba(16, 16, 16, 0.45) 25%, rgba(16, 16, 16, 0) 100%);
     background-image: -ms-linear-gradient(to top, rgba(16, 16, 16, 0.45) 25%, rgba(16, 16, 16, 0) 100%);
     background-image: linear-gradient(to top, rgba(16, 16, 16, 0.45) 25%, rgba(16, 16, 16, 0) 100%);
-    bottom: 0;
+    /*bottom: 0;*/
     cursor: default;
     left: 0;
     position: absolute;
@@ -1353,7 +1357,7 @@ body.touch .poptrox-popup .nav-next {
     }
 
     .poptrox-popup .caption {
-        display: none !important;
+        /*display: none !important;*/ /*Commented so captions are visible in mobile*/
     }
 
     .poptrox-popup .closer,
@@ -1603,6 +1607,9 @@ body.is-preload #header {
     -webkit-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
@@ -2120,4 +2127,10 @@ body.is-preload #main .thumb {
     display: inline-block;
     letter-spacing: .15ch;
     font-weight: 400
+}
+
+.poptrox-popup .caption p .button {
+    margin: 8px 2px;
+    cursor: pointer;
+    float: right;
 }

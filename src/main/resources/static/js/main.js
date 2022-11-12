@@ -57,31 +57,35 @@
             }, 100);
             console.log("load event!");
             const API_URL = "https://api.ipregistry.co/?key=rhc99920r7mix3z9";
-            //get the user's IP address and data from the API
-            const response = async () => {
-                const result = await fetch(API_URL);
-                const data = await result.json();
-                console.log(data);
-                return data;
+            //get the user's IP address and data from the API only in main page
+            if (window.location.pathname === "/") {
+                const response = async () => {
+                    const result = await fetch(API_URL);
+                    const data = await result.json();
+                    console.log(data);
+                    return data;
 
-            }
-            //create a visit object from the data
-            response().then(data => {
-                const visit = jsonToVisit(data);
-                console.log(visit);
-                //send the visit object to the server
-                $.ajax({
-                    url: "/api/visit/create",
-                    type: "POST",
-                    data: JSON.stringify(visit),
-                    contentType: "application/json",
-                    dataType: "json",
-                    success: function (result) {
-                        console.log("Visita creada:")
-                        console.log(result);
-                    }
+                }
+                //create a visit object from the data
+                response().then(data => {
+                    const visit = jsonToVisit(data);
+                    console.log(visit);
+                    //send the visit object to the server
+                    $.ajax({
+                        url: "/api/visit/create",
+                        type: "POST",
+                        data: JSON.stringify(visit),
+                        contentType: "application/json",
+                        dataType: "json",
+                        success: function (result) {
+                            console.log("Visita creada:")
+                            console.log(result);
+                        }
+                    });
                 });
-            });
+            } else {
+                console.log("Not main page!");
+            }
         });
 
         // Prevent transitions/animations on resize.
