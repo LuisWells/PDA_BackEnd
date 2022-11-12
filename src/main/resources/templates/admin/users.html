@@ -33,16 +33,16 @@
             <h1>Listado de Usuarios Administradores</h1>
             <p>La tabla de abajo muestra el listado de cada administrador. Utiliza los botones correspondientes para
                 modificarlos.</p>
-
         </div>
-        <div>
+        <div class="table-wrapper">
             <table>
                 <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Estado</th>
-                    <th>Fecha de creación</th>
+                    <th>Creado</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,7 +54,7 @@
                     <td><span th:text="${user.email}">Email</span></td>
                     <td><span class="tag tag-active tag-sm" th:if="${user.active==true}">&nbsp;Activo&nbsp;</span>
                         <span class="tag tag-inactive tag-sm" th:if="${user.active==false}">Inactivo</span></td>
-                    <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Fecha de creación </span>
+                    <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Creado</span>
                     </td>
                     <td><a href="#">Editar</a></td>
                 </tr>
