@@ -26,28 +26,29 @@
     </header>
 
     <!-- Main -->
-    <div class="center-content" id="main">
-        <section>
-            <h2>Inicio de sesión</h2>
-            <p>(aquí es donde la magia sucede...)</p>
+    <div class="center-vertical" id="main">
+        <div class="center-vertical">
             <form action="/login" method="post">
+                <h2>Inicio de sesión</h2>
+                <p>(aquí es donde la magia sucede...)</p>
+                <img th:src="@{/images/site/login.png}"/>
                 <div class="fields">
                     <div class="field half">
-                        <input id="username" name="username" placeholder="Nombre de usuario" type="text"/>
+                        <input id="username" name="username" placeholder="Tu email" type="text"/>
                     </div>
                     <div class="field half">
-                        <input id="password" name="password" placeholder="Contraseña" type="password"/>
+                        <input id="password" name="password" placeholder="Tu contraseña" type="password"/>
                     </div>
                     <div class="field half">
                         <input id="remember-me" name="remember-me" type="checkbox"/><label for="remember-me">Recordarme?
                         (¡Ojito! Solo por 30 días)</label>
                     </div>
                 </div>
-                <ul class="actions">
+                <ul class="actions center-content">
                     <li><input class="primary" type="submit" value="Iniciar sesión"/></li>
                 </ul>
             </form>
-        </section>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -68,7 +69,7 @@
                     </ul>
                 </section>
                 <p class="copyright">
-                    ¿Eliminar artefactos, banear usuarios?: <a th:href="@{/admin}">admin panel</a>.
+                    ¿Eliminar artefactos, bloquear usuarios?: <a th:href="@{/admin}">admin panel</a>.
                 </p>
             </div>
             <div>

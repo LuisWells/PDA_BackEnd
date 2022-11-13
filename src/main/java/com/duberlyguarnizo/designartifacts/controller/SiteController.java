@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -66,8 +67,9 @@ public class SiteController {
     }
 
     @GetMapping("/admin/users")
-    public String adminUsers(Model model) {
+    public String adminUsers(@ModelAttribute Admin admin, Model model) {
         model.addAttribute("users", adminRepository.findAll());
+        model.addAttribute("admin", admin);
         return "admin/users";
     }
 

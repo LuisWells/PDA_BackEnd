@@ -1,8 +1,3 @@
-/*
-	Multiverse by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-*/
 
 (function ($) {
     function jsonToVisit(json_data) {
@@ -48,6 +43,7 @@
         $body.addClass('touch');
 
     // Transitions supported?
+    // Notice that API requests are unsupported in browsers that don't support transitions.
     if (browser.canUse('transition')) {
 
         // Play initial animations on page load.

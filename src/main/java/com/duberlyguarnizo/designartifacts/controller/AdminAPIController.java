@@ -1,5 +1,6 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
+import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
 import com.duberlyguarnizo.designartifacts.model.Admin;
 import com.duberlyguarnizo.designartifacts.repository.AdminRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,10 +22,12 @@ import java.util.List;
 @Log
 public class AdminAPIController {
     private final AdminRepository adminRepository;
+    private final PdaPasswordEncoder pdaPasswordEncoder;
 
     @Autowired
-    public AdminAPIController(AdminRepository adminRepository) {
+    public AdminAPIController(AdminRepository adminRepository, PdaPasswordEncoder pdaPasswordEncoder) {
         this.adminRepository = adminRepository;
+        this.pdaPasswordEncoder = pdaPasswordEncoder;
     }
 
     @Operation(summary = "Listar los administradores")
@@ -113,6 +116,7 @@ public class AdminAPIController {
                     content = @Content)})
     @PostMapping("/create")
     public ResponseEntity<Admin> createAdmin(@RequestBody Admin admin) {
+        admin.setPasswordHash(pdaPasswordEncoder.bCryptPasswordEncoder().encode(admin.getPasswordHash()));
         adminRepository.save(admin);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
