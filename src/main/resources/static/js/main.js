@@ -48,6 +48,7 @@
         $body.addClass('touch');
 
     // Transitions supported?
+    // Notice that API requests are unsupported in browsers that don't support transitions.
     if (browser.canUse('transition')) {
 
         // Play initial animations on page load.
