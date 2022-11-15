@@ -597,6 +597,7 @@ textarea {
     padding: 0 1em;
     text-decoration: none;
     width: 100%;
+    margin-bottom: 1em;
 }
 
 input[type="text"]:invalid,
@@ -2140,4 +2141,44 @@ body.is-preload #main .thumb {
     justify-content: center;
     text-align: center;
     margin-top: 5em;
+}
+
+/* The popup form - hidden by default */
+.modal {
+    display: none;
+!important;
+}
+
+.modal.is-open {
+    display: block;
+!important;
+}
+
+.modal__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal__container {
+    background-color: #242629;
+    padding: 30px;
+    max-width: 500px;
+    max-height: 100vh;
+    border-radius: 4px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.modal__content {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, .8);
 }

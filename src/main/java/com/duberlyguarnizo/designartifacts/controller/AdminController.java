@@ -4,11 +4,10 @@ import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
 import com.duberlyguarnizo.designartifacts.model.Admin;
 import com.duberlyguarnizo.designartifacts.repository.AdminRepository;
 import lombok.extern.java.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +19,7 @@ import java.util.List;
 @Log
 @RequestMapping("/admin")
 public class AdminController {
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
     private final AdminRepository adminRepository;
     private final PdaPasswordEncoder pdaPasswordEncoder;
 
@@ -53,12 +53,11 @@ public class AdminController {
         return adminRepository.findByNameContaining(name);
     }
 
-    @PostMapping(path = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String createAdmin(@RequestBody Admin admin) {
+    @PostMapping(path = "/create")
+    public void createAdmin(@RequestBody Admin admin) {
         admin.setPasswordHash(pdaPasswordEncoder.bCryptPasswordEncoder().encode(admin.getPasswordHash()));
-        System.out.println(admin.getPasswordHash());
         adminRepository.save(admin);
-        return "redirect:/admin/users";
+        logger.info("Admin created: {}", admin.getName());
     }
 
 

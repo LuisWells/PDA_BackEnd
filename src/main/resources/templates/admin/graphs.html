@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-    <title>Admin Panel: Usuarios</title>
+    <title>Admin Panel: Gráficos</title>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
@@ -30,8 +30,9 @@
             <a class="button primary logout" th:href="@{/logout}">Cerrar Sesión</a>
         </div>
         <div class="center-content">
-            <h1>Listado de Usuarios Administradores</h1>
-            <p>La tabla de abajo muestra el listado de cada administrador. Utiliza los botones correspondientes para
+            <h1>Listado de Definiciones de Gráficos</h1>
+            <p>La tabla de abajo muestra el listado de definiciones, que serán utilizados por los visitantes para
+                generar artefactos. Usa los botones correspondientes para
                 modificarlos.</p>
         </div>
         <div class="table-wrapper">
@@ -39,30 +40,30 @@
                 <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                    <th>Creado</th>
+                    <th>Código SVG</th>
+                    <th>Versión</th>
+                    <th>Creado Por</th>
+                    <th>Creado</th> <!--TODO: Implement modified date in all admin pages instead of creation date-->
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${users.isEmpty()}">
+                <tr th:if="${graphs.isEmpty()}">
                     <td colspan="4"> No hay usuarios registrados</td>
                 </tr>
-                <tr th:each="user : ${users}">
-                    <td><span th:text="${user.name}">Nombre</span></td>
-                    <td><span th:text="${user.email}">Email</span></td>
-                    <td><span class="tag tag-active tag-sm" th:if="${user.active==true}">&nbsp;Activo&nbsp;</span>
-                        <span class="tag tag-inactive tag-sm" th:if="${user.active==false}">Inactivo</span></td>
-                    <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Creado</span>
-                    </td>
+                <tr th:each="graph : ${graphs}">
+                    <td><span th:text="${graph.name}">Nombre</span></td>
+                    <td><span th:text="${graph.svg}">Código</span></td>
+                    <td><span th:text="${graph.version}">Versión</span></td>
+                    <td><span th:text="${graph.creationAdmin.name}">Creado Por</span></td>
+                    <td><span th:text="${#temporals.format(graph.creationDate, 'dd-MM-yy')}">Creado</span></td>
                     <td><a href="#">Editar</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div class="center-content">
-            <button class="button primary" id="btn-open-new-entity-popup">Crear Usuario</button>
+            <button class="button primary" id="btn-open-new-entity-popup">Crear Gráfico</button>
         </div>
     </div>
 </div>

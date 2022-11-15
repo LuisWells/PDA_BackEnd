@@ -1,9 +1,11 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
-import com.duberlyguarnizo.designartifacts.model.Admin;
-import com.duberlyguarnizo.designartifacts.model.Comment;
+import com.duberlyguarnizo.designartifacts.model.*;
 import com.duberlyguarnizo.designartifacts.repository.AdminRepository;
+import com.duberlyguarnizo.designartifacts.repository.ContentRepository;
+import com.duberlyguarnizo.designartifacts.repository.GraphRepository;
+import com.duberlyguarnizo.designartifacts.repository.LinkRepository;
 import com.duberlyguarnizo.designartifacts.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,12 +24,18 @@ public class SiteController {
 
     private final EmailService emailService;
     private final AdminRepository adminRepository;
+    private final ContentRepository contentRepository;
+    private final GraphRepository graphRepository;
+    private final LinkRepository linkRepository;
     private final PdaPasswordEncoder pdaPasswordEncoder;
 
     @Autowired
-    public SiteController(EmailService emailService, AdminRepository adminRepository, PdaPasswordEncoder pdaPasswordEncoder) {
+    public SiteController(EmailService emailService, AdminRepository adminRepository, ContentRepository contentRepository, GraphRepository graphRepository, LinkRepository linkRepository, PdaPasswordEncoder pdaPasswordEncoder) {
         this.emailService = emailService;
         this.adminRepository = adminRepository;
+        this.contentRepository = contentRepository;
+        this.graphRepository = graphRepository;
+        this.linkRepository = linkRepository;
         this.pdaPasswordEncoder = pdaPasswordEncoder;
     }
 
@@ -71,6 +79,24 @@ public class SiteController {
         model.addAttribute("users", adminRepository.findAll());
         model.addAttribute("admin", admin);
         return "admin/users";
+    }
+
+    @GetMapping("/admin/contents")
+    public String adminUsers(@ModelAttribute GraphContent content, Model model) {
+        model.addAttribute("contents", contentRepository.findAll());
+        return "admin/contents";
+    }
+
+    @GetMapping("/admin/graphs")
+    public String adminUsers(@ModelAttribute GraphDefinition graphDefinition, Model model) {
+        model.addAttribute("graphs", graphRepository.findAll());
+        return "admin/graphs";
+    }
+
+    @GetMapping("/admin/links")
+    public String adminUsers(@ModelAttribute GraphLink graphLink, Model model) {
+        model.addAttribute("links", linkRepository.findAll());
+        return "admin/links";
     }
 
     @GetMapping("/sample-user")
