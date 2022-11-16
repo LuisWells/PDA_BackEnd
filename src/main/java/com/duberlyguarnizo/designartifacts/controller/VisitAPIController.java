@@ -12,6 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -210,9 +213,15 @@ public class VisitAPIController {
                     content = @Content)})
     @PostMapping("/create")
     public ResponseEntity<Visit> createVisit(@RequestBody Visit visit) {
-        logger.warn("Creating Visit " + visit.toString());
+        //check if visit was admin...
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            visit.setWasAdmin(true);
+            logger.warn("Visit was admin");
+        }
+
         Visit result = visitRepository.save(visit);
-        logger.warn("Visit created: " + result);
+        logger.warn("Visit created: {}", result);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
