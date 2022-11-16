@@ -1,4 +1,3 @@
-
 (function ($) {
     function jsonToVisit(json_data) {
         return {

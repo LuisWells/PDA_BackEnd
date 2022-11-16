@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="es">
 <head>
-    <title>Admin Panel: Usuarios</title>
+    <title>Admin Panel: Contenidos</title>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
@@ -30,39 +30,36 @@
             <a class="button primary logout" th:href="@{/logout}">Cerrar Sesión</a>
         </div>
         <div class="center-content">
-            <h1>Listado de Usuarios Administradores</h1>
-            <p>La tabla de abajo muestra el listado de cada administrador. Utiliza los botones correspondientes para
+            <h1>Listado de Contenidos</h1>
+            <p>La tabla de abajo muestra el listado de contenidos, que serán utilizados para generar gráficos mediante
+                las definiciones relacionadas. Usa los botones correspondientes para
                 modificarlos.</p>
         </div>
         <div class="table-wrapper">
             <table>
                 <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Estado</th>
-                    <th>Creado</th>
+                    <th>Id</th>
+                    <th>Contenido</th>
+                    <th>Creación</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:if="${users.isEmpty()}">
+                <tr th:if="${contents.isEmpty()}">
                     <td colspan="4"> No hay usuarios registrados</td>
                 </tr>
-                <tr th:each="user : ${users}">
-                    <td><span th:text="${user.name}">Nombre</span></td>
-                    <td><span th:text="${user.email}">Email</span></td>
-                    <td><span class="tag tag-active tag-sm" th:if="${user.active==true}">&nbsp;Activo&nbsp;</span>
-                        <span class="tag tag-inactive tag-sm" th:if="${user.active==false}">Inactivo</span></td>
-                    <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Creado</span>
-                    </td>
+                <tr th:each="content : ${contents}">
+                    <td><span th:text="${content.contentId}">Id</span></td>
+                    <td><span th:text="${content.contentJson}">Contenido</span></td>
+                    <td><span th:text="${#temporals.format(content.creationDate, 'dd-MM-yy')}">Creado</span></td>
                     <td><a href="#">Editar</a></td>
                 </tr>
                 </tbody>
             </table>
         </div>
         <div class="center-content">
-            <button class="button primary" id="btn-open-new-entity-popup">Crear Usuario</button>
+            <button class="button primary" id="btn-open-new-entity-popup">Crear Contenido</button>
         </div>
     </div>
 </div>
