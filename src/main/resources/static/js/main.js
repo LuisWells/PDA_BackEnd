@@ -1,5 +1,6 @@
 (function ($) {
     function jsonToVisit(json_data) {
+        const sharedLink = window.location.pathname.includes('/artifact');
         return {
             "browser": json_data.user_agent.name,
             "browserVersion": json_data.user_agent.version,
@@ -13,7 +14,7 @@
             "clicked_select_graph_type": false,
             "clicked_select_output": false,
             "copied_share_link": false,
-            "from_share_link": false, //TODO: implement URL recognition
+            "from_share_link": sharedLink,
             "had_interactions": false,
             "typed_graph_content": false,
             "was_admin": false,
@@ -53,7 +54,7 @@
             console.log("load event!");
             const API_URL = "https://api.ipregistry.co/?key=rhc99920r7mix3z9";
             //get the user's IP address and data from the API only in main page
-            if (window.location.pathname === "/") {
+            if (window.location.pathname === "/" || window.location.pathname.includes('/artifact')) {
                 const response = async () => {
                     const result = await fetch(API_URL);
                     const data = await result.json();

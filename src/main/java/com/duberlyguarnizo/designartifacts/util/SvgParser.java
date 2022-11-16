@@ -41,8 +41,6 @@ public class SvgParser {
     }
 
     public String parse(String contenidosJson) {
-
-
         String textVariablesString = svgContent.split("@@@")[1];
         log.info(textVariablesString);
         List<TextVariable> textVariables = new ArrayList<>();
@@ -90,7 +88,7 @@ public class SvgParser {
         return svgContentNoFirstLine;
     }
 
-    static class TextVariable {
+    static class TextVariable { //should be a record, but Spring Boot doesn't play well with them
         final String name;
         final int xOffset;
         final int yOffset;

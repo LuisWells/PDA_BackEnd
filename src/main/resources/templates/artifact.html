@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <title>Artefacto</title>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=yes" name="viewport"/>
+    <meta name="Creación automática de artefactos visuales para su uso en publicaciones con estándares APA y otros.">
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <noscript>
+        <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
+    </noscript>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <h1><a th:href="@{/}"><strong>Planning Design Artifacts</strong> gráficos estandarizados para
+            publicaciones</a></h1>
+        <nav>
+            <ul>
+                <li><a class="icon solid fa-info-circle" href="#footer">Nosotros</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main -->
+    <h1>Artefacto Generado</h1>
+    <div class="center-vertical" id="main">
+        <div class="center-vertical apa-style">
+            <svg height="50em" th:utext="${svgArtifact}" width="50em" xmlns="http://www.w3.org/2000/svg"/>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="panel" id="footer">
+        <div class="inner split">
+            <div>
+                <section>
+                    <h2>Grupo 3</h2>
+                    <p>¡Envidia, nos tienen envidia!<br>
+                        Somos estudiantes del sexto ciclo (en promedio) con ganas de aprobar un curso, inspirados en
+                        nuestra estimada líder y maestra. Nuestro conocimiento, unido, casi suma al de un profesional
+                        completo.</p>
+                </section>
+                <section>
+                    <h2>Revisa el código...</h2>
+                    <ul class="icons">
+                        <li><a class="icon brands fa-github" href="#"><span class="label">GitHub</span></a></li>
+                    </ul>
+                </section>
+                <p class="copyright">
+                    ¿Eliminar artefactos, bloquear usuarios?: <a th:href="@{/admin}">admin panel</a>.
+                </p>
+            </div>
+            <div>
+                <section>
+                    <h2>¿Nuestros chistes te parecen malos? Contactanos</h2>
+                    <form action="/comentarios" enctype="application/x-www-form-urlencoded" method="post"
+                          th:action="@{/comentarios}">
+                        <div class="fields">
+                            <div class="field half">
+                                <input id="name" name="name" placeholder="Nombre" type="text"/>
+                            </div>
+                            <div class="field half">
+                                <input id="email" name="email" placeholder="Email" type="text"/>
+                            </div>
+                            <div class="field">
+                                <textarea id="message" name="message"
+                                          placeholder="Critica constructiva (o propuesta de chiste)"
+                                          rows="4"></textarea>
+                            </div>
+                        </div>
+                        <ul class="actions">
+                            <li><input class="primary" type="submit" value="Enviar"/></li>
+                            <li><input type="reset" value="Borrar"/></li>
+                        </ul>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/jquery.poptrox.min.js}"></script>
+<script th:src="@{/js/browser.min.js}"></script>
+<script th:src="@{/js/breakpoints.min.js}"></script>
+<script th:src="@{/js/util.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>
