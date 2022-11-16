@@ -1,19 +1,20 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
-import com.duberlyguarnizo.designartifacts.model.*;
+import com.duberlyguarnizo.designartifacts.model.Admin;
+import com.duberlyguarnizo.designartifacts.model.Comment;
+import com.duberlyguarnizo.designartifacts.model.GraphContent;
+import com.duberlyguarnizo.designartifacts.model.GraphDefinition;
 import com.duberlyguarnizo.designartifacts.repository.*;
 import com.duberlyguarnizo.designartifacts.service.EmailService;
+import com.duberlyguarnizo.designartifacts.service.SvgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -28,9 +29,10 @@ public class SiteController {
     private final LinkRepository linkRepository;
     private final VisitRepository visitRepository;
     private final PdaPasswordEncoder pdaPasswordEncoder;
+    private final SvgService svgService;
 
     @Autowired
-    public SiteController(EmailService emailService, AdminRepository adminRepository, ContentRepository contentRepository, GraphRepository graphRepository, LinkRepository linkRepository, VisitRepository visitRepository, PdaPasswordEncoder pdaPasswordEncoder) {
+    public SiteController(EmailService emailService, AdminRepository adminRepository, ContentRepository contentRepository, GraphRepository graphRepository, LinkRepository linkRepository, VisitRepository visitRepository, PdaPasswordEncoder pdaPasswordEncoder, SvgService sgvService) {
         this.emailService = emailService;
         this.adminRepository = adminRepository;
         this.contentRepository = contentRepository;
@@ -38,6 +40,7 @@ public class SiteController {
         this.linkRepository = linkRepository;
         this.visitRepository = visitRepository;
         this.pdaPasswordEncoder = pdaPasswordEncoder;
+        this.svgService = sgvService;
     }
 
     @RequestMapping("/")
@@ -126,6 +129,13 @@ public class SiteController {
         return "admin/visits";
     }
 
+    @GetMapping("/artifact")
+    public String getArtifact(@RequestParam String path, Model model) {
+        String svg = svgService.getSvgByPath(path);
+        model.addAttribute("svgArtifact", svg);
+        return "artifact";
+    }
+
     @GetMapping("/sample-user")
     public String sampleUser() {
         Admin testAdmin = new Admin();
@@ -136,10 +146,10 @@ public class SiteController {
                         .encode("luis"));
         testAdmin.setName("Luis Daniel");
         testAdmin.setActive(true);
-        System.out.println(testAdmin.toString());
+        System.out.println(testAdmin);
         testAdmin = adminRepository.save(testAdmin);
         System.out.println("Sample user created!!!!!");
-        System.out.println(testAdmin.toString());
+        System.out.println(testAdmin);
         return "redirect:index";
     }
 }
