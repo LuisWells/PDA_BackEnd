@@ -2077,7 +2077,15 @@ body.is-preload #main .thumb {
 
 .center-content {
     padding-top: 1em;
+    padding-bottom: 1em;
     justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.center-content h3 {
+    margin-top: 1em;
 }
 
 .tab-nav ul {

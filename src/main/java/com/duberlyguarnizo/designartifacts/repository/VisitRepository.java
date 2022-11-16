@@ -11,6 +11,8 @@ import java.util.List;
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     List<Visit> findByVisitDateTimeBetween(LocalDateTime start, LocalDateTime end);
 
+    long countByVisitDateTimeBetween(LocalDateTime start, LocalDateTime end);
+
     long countByClickedDownloadGraphIsTrue();
 
     long countByClickedGenerateOutputIsTrue();

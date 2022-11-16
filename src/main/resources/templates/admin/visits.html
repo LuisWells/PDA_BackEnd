@@ -3,7 +3,8 @@
 <head>
     <title>Admin Panel: Visitas</title>
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=yes" name="viewport"/>
+    <meta name="Creación automática de artefactos visuales. Detalles de visitas al sitio.">
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
     <noscript>
         <link rel="stylesheet" th:href="@{/css/noscript.css}"/>
@@ -34,37 +35,62 @@
             <p>La tabla de abajo muestra un resumen de las de visitas.</p>
         </div>
         <!--    TODO: add entities to controller, so we can add sums, averages, and main countries, cities, etc.-->
-        <div class="table-wrapper">
+        <div class="table-wrapper center-content">
+            <h3>Datos Generales</h3>
             <table>
-                <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Id Contenido</th>
-                    <th>Id Definición</th>
-                    <th>Nombre de Definición</th>
-                    <th>Path</th>
-                    <th>Creado</th> <!--TODO: Implement modified date in all admin pages instead of creation date-->
+                    <th>Visitas hoy</th>
+                    <td><span th:text="${vToday}">Visitas Hoy</span></td>
                 </tr>
-                </thead>
-                <tbody>
-                <tr th:if="${links.isEmpty()}">
-                    <td colspan="4"> No hay usuarios registrados</td>
+                <tr>
+                    <th>Total De Visitas</th>
+                    <td><span th:text="${vTotal}">Total de visitas</span></td>
                 </tr>
-                <tr th:each="link : ${links}">
-                    <td><span th:text="${link.linkId}">Id</span></td>
-                    <td><span th:text="${link.graphContent.contentId}">Id Contenido</span></td>
-                    <td><span th:text="${link.graphDefinition.graphId}">Id Definición</span></td>
-                    <td><span th:text="${link.graphDefinition.name}">Id Definición</span></td>
-                    <td><span th:text="${link.path}">Path</span></td>
-                    <td><span th:text="${#temporals.format(link.creationDate, 'dd-MM-yy')}">Creado</span></td>
+                <tr>
+                    <th>Total Visitas de Admin</th>
+                    <td><span th:text="${vWasAdmin}">Total visitas admin</span></td>
                 </tr>
-                </tbody>
+                <tr>
+                    <th>Total Gráficos descargados</th>
+                    <td><span th:text="${vDownloadedGraphs}">Total gráficos descargados</span></td>
+                </tr>
+                <tr>
+                    <th>Total Visitas con Link</th>
+                    <td><span th:text="${vFromShareLink}">Total visitas con link</span></td>
+                </tr>
             </table>
         </div>
-        <div class="center-content">
-            <button class="button primary" id="btn-open-new-entity-popup">Crear Gráfico</button>
+        <div class="table-wrapper center-content">
+            <h3>Interacción de visitantes</h3>
+            <table>
+                <tr>
+                    <th>Tuvieron interacción</th>
+                    <td><span th:text="${vHadInteractions}">Total tuvieron interacción</span></td>
+                </tr>
+                <tr>
+                    <th>Seleccionaron Tipo de Gráfico</th>
+                    <td><span th:text="${vSelectedGraphType}">Total seleccionaron tipo de gráfico</span></td>
+                </tr>
+                <tr>
+                    <th>Escribieron contenido</th>
+                    <td><span th:text="${vTypedGraphContent}">Total escribieron contenido</span></td>
+                </tr>
+                <tr>
+                    <th>Seleccionaron Tipo de Salida</th>
+                    <td><span th:text="${vSelectedOutput}">Total seleccionaron tipo de salida</span></td>
+                </tr>
+                <tr>
+                    <th>Generaron salidas</th>
+                    <td><span th:text="${vGeneratedOutput}">Total generaron salidas</span></td>
+                </tr>
+                <tr>
+                    <th>Copiaron link para compartir</th>
+                    <td><span th:text="${vCopiedShareLink}">Total copiaron link</span></td>
+                </tr>
+            </table>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Footer -->

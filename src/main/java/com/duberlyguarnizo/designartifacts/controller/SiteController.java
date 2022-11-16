@@ -2,10 +2,7 @@ package com.duberlyguarnizo.designartifacts.controller;
 
 import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
 import com.duberlyguarnizo.designartifacts.model.*;
-import com.duberlyguarnizo.designartifacts.repository.AdminRepository;
-import com.duberlyguarnizo.designartifacts.repository.ContentRepository;
-import com.duberlyguarnizo.designartifacts.repository.GraphRepository;
-import com.duberlyguarnizo.designartifacts.repository.LinkRepository;
+import com.duberlyguarnizo.designartifacts.repository.*;
 import com.duberlyguarnizo.designartifacts.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class SiteController {
     private static final Logger logger = LoggerFactory.getLogger(SiteController.class);
@@ -27,21 +26,22 @@ public class SiteController {
     private final ContentRepository contentRepository;
     private final GraphRepository graphRepository;
     private final LinkRepository linkRepository;
+    private final VisitRepository visitRepository;
     private final PdaPasswordEncoder pdaPasswordEncoder;
 
     @Autowired
-    public SiteController(EmailService emailService, AdminRepository adminRepository, ContentRepository contentRepository, GraphRepository graphRepository, LinkRepository linkRepository, PdaPasswordEncoder pdaPasswordEncoder) {
+    public SiteController(EmailService emailService, AdminRepository adminRepository, ContentRepository contentRepository, GraphRepository graphRepository, LinkRepository linkRepository, VisitRepository visitRepository, PdaPasswordEncoder pdaPasswordEncoder) {
         this.emailService = emailService;
         this.adminRepository = adminRepository;
         this.contentRepository = contentRepository;
         this.graphRepository = graphRepository;
         this.linkRepository = linkRepository;
+        this.visitRepository = visitRepository;
         this.pdaPasswordEncoder = pdaPasswordEncoder;
     }
 
     @RequestMapping("/")
     public String index(Model model) {
-
         return "index";
     }
 
@@ -82,21 +82,48 @@ public class SiteController {
     }
 
     @GetMapping("/admin/contents")
-    public String adminUsers(@ModelAttribute GraphContent content, Model model) {
+    public String adminContents(@ModelAttribute GraphContent content, Model model) {
         model.addAttribute("contents", contentRepository.findAll());
         return "admin/contents";
     }
 
     @GetMapping("/admin/graphs")
-    public String adminUsers(@ModelAttribute GraphDefinition graphDefinition, Model model) {
+    public String adminGraphs(@ModelAttribute GraphDefinition graphDefinition, Model model) {
         model.addAttribute("graphs", graphRepository.findAll());
         return "admin/graphs";
     }
 
     @GetMapping("/admin/links")
-    public String adminUsers(@ModelAttribute GraphLink graphLink, Model model) {
+    public String adminLinks(Model model) {
         model.addAttribute("links", linkRepository.findAll());
         return "admin/links";
+    }
+
+    @GetMapping("/admin/visits")
+    public String adminVisits(Model model) {
+        long totalVisitsToday = visitRepository.countByVisitDateTimeBetween(LocalDateTime.now().withHour(0).withMinute(0).withSecond(0), LocalDateTime.now());
+        long totalVisits = visitRepository.count();
+        long totalVisitsDownloadedGraphs = visitRepository.countByClickedDownloadGraphIsTrue();
+        long totalVisitsGeneratedOutput = visitRepository.countByClickedGenerateOutputIsTrue();
+        long totalVisitsSelectedGraphType = visitRepository.countByClickedSelectGraphTypeIsTrue();
+        long totalVisitsSelectedOutput = visitRepository.countByClickedSelectOutputIsTrue();
+        long totalVisitsCopiedShareLink = visitRepository.countByCopiedShareLinkIsTrue();
+        long totalVisitsFromShareLink = visitRepository.countByFromShareLinkIsTrue();
+        long totalVisitsTypedGraphContent = visitRepository.countByTypedGraphContentIsTrue();
+        long totalVisitsHadInteractions = visitRepository.countByHadInteractionsIsTrue();
+        long totalVisitsWasAdmin = visitRepository.countByWasAdminIsTrue();
+        model.addAttribute("vToday", totalVisitsToday);
+        model.addAttribute("vTotal", totalVisits);
+        model.addAttribute("vDownloadedGraphs", totalVisitsDownloadedGraphs);
+        model.addAttribute("vGeneratedOutput", totalVisitsGeneratedOutput);
+        model.addAttribute("vSelectedGraphType", totalVisitsSelectedGraphType);
+        model.addAttribute("vSelectedOutput", totalVisitsSelectedOutput);
+        model.addAttribute("vCopiedShareLink", totalVisitsCopiedShareLink);
+        model.addAttribute("vFromShareLink", totalVisitsFromShareLink);
+        model.addAttribute("vTypedGraphContent", totalVisitsTypedGraphContent);
+        model.addAttribute("vHadInteractions", totalVisitsHadInteractions);
+        model.addAttribute("vWasAdmin", totalVisitsWasAdmin);
+        return "admin/visits";
     }
 
     @GetMapping("/sample-user")

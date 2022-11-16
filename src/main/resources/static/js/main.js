@@ -62,6 +62,7 @@
 
                 }
                 //create a visit object from the data
+                //TODO: set visitId to global variable and update when user actions are performed
                 response().then(data => {
                     const visit = jsonToVisit(data);
                     console.log(visit);
