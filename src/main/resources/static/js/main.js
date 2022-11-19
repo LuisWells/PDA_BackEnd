@@ -60,7 +60,6 @@
                     const data = await result.json();
                     console.log(data);
                     return data;
-
                 }
                 //create a visit object from the data
                 //TODO: set visitId to global variable and update when user actions are performed
@@ -287,7 +286,7 @@
 
     // Poptrox.
     $main.poptrox({
-        baseZIndex: 20000,
+        baseZIndex: 2,
         caption: function ($a) {
 
             let s = '';
@@ -322,7 +321,6 @@
         usePopupNav: true,
         windowMargin: 50
     });
-
     // Hack: Set margins to 0 when 'xSmall' activates.
     breakpoints.on('<=xsmall', function () {
         $main[0]._poptrox.windowMargin = 0;

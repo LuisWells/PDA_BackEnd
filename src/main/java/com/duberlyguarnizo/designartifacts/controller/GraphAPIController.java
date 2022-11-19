@@ -8,17 +8,21 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("api/graph")
 public class GraphAPIController {
+    private static final Logger logger = LoggerFactory.getLogger(GraphAPIController.class);
     private final GraphRepository graphRepository;
 
     @Autowired
@@ -91,6 +95,23 @@ public class GraphAPIController {
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/variables/{graphId}")
+    public ResponseEntity<List<String>> getGraphVariablesAsString(@PathVariable("graphId") Long graphId) {
+        GraphDefinition graph = graphRepository.findById(graphId).orElse(null);
+        if (graph == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        String variablesComment = graph.getSvg();
+        String variablesCommentText = variablesComment.substring(variablesComment.indexOf("<!--@@@") + 7, variablesComment.indexOf("@@@-->"));
+        String[] variablesArray = variablesCommentText.split(";");
+        List<String> result = new ArrayList<>();
+        for (String variable : variablesArray) {
+            result.add(variable.split("=")[0]);
+        }
+        logger.warn("Variables: " + result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

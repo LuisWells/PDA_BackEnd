@@ -1400,6 +1400,7 @@ body.touch .poptrox-popup .nav-next {
 
 body.ie #wrapper:after {
     background: rgba(36, 38, 41, 0.8);
+    z-index: 2;
 }
 
 body.modal-active #wrapper {
@@ -1407,13 +1408,14 @@ body.modal-active #wrapper {
     -webkit-filter: blur(8px);
     -ms-filter: blur(8px);
     filter: blur(8px);
+    z-index: 2;
 }
 
 body.modal-active #wrapper:after {
     pointer-events: auto;
     opacity: 1;
     visibility: visible;
-    z-index: 10003;
+    z-index: 3;
 }
 
 #wrapper:before {
@@ -2153,13 +2155,11 @@ body.is-preload #main .thumb {
 
 /* The popup form - hidden by default */
 .modal {
-    display: none;
-!important;
+    display: none !important;
 }
 
 .modal.is-open {
-    display: block;
-!important;
+    display: block !important;
 }
 
 .modal__overlay {
@@ -2168,10 +2168,11 @@ body.is-preload #main .thumb {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal__container {
