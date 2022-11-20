@@ -27,26 +27,40 @@ function showCreationForm(graphId) {
 
             for (let input of formInputs) {
                 graphData[input.id] = input.value;
-                //graphData=graphData.concat('"'+input.id + '": "' + input.value+'",');
             }
-            //graphData=graphData.concat("}");
             console.log(graphData);
             console.log(graphData);
             const content_request = {"contentJson": JSON.stringify(graphData)};
             $.ajax({
+                //create GRAPH
                 url: "/api/content/create",
                 type: "POST",
                 data: JSON.stringify(content_request),
                 contentType: "application/json",
                 dataType: "json",
                 success: function (result) {
+                    //create LINK
                     console.log("Content created:");
+                    console.log(result);
+                    const contentId = result.contentId;
+                    const link_path = graphId + "-" + contentId;
+                    $.ajax({
+                        url: "/api/link/create/",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({"path": link_path}),
+                        dataType: "json",
+                        success: function (result) {
+                            console.log("Link created:");
+                            console.log(result);
+                            window.open("/artifact?/path=" + link_path, "_self");
+                        }
+                    });
                 }
             });
-            //create link
         });
-        MicroModal.show('graph-creation-form');
     });
+    MicroModal.show('graph-creation-form');
 
     $closeNewEntityBtn.on('click', function (event) {
         MicroModal.close('graph-creation-form');

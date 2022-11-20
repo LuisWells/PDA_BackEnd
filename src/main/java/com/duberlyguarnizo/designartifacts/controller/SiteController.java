@@ -11,6 +11,7 @@ import com.duberlyguarnizo.designartifacts.service.SvgService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,19 +87,19 @@ public class SiteController {
 
     @GetMapping("/admin/contents")
     public String adminContents(@ModelAttribute GraphContent content, Model model) {
-        model.addAttribute("contents", contentRepository.findAll());
+        model.addAttribute("contents", contentRepository.findAll(Sort.by(Sort.Direction.ASC, "contentId")));
         return "admin/contents";
     }
 
     @GetMapping("/admin/graphs")
     public String adminGraphs(@ModelAttribute GraphDefinition graphDefinition, Model model) {
-        model.addAttribute("graphs", graphRepository.findAll());
+        model.addAttribute("graphs", graphRepository.findAll(Sort.by(Sort.Direction.ASC, "graphId")));
         return "admin/graphs";
     }
 
     @GetMapping("/admin/links")
     public String adminLinks(Model model) {
-        model.addAttribute("links", linkRepository.findAll());
+        model.addAttribute("links", linkRepository.findAll(Sort.by(Sort.Direction.DESC, "creationDate")));
         return "admin/links";
     }
 

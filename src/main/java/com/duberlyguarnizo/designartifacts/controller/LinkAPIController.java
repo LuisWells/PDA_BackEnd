@@ -93,6 +93,16 @@ public class LinkAPIController {
                     content = @Content)})
     @PostMapping("/create")
     public ResponseEntity<GraphLink> createLink(@RequestBody GraphLink graphLink) {
+        String path = graphLink.getPath();
+        long graphId = Long.parseLong(path.split("-")[0]);
+        long contentId = Long.parseLong(path.split("-")[1]);
+        GraphContent graphContent = contentRepository.findById(contentId).orElse(null);
+        GraphDefinition graphDefinition = graphRepository.findById(graphId).orElse(null);
+        if (graphContent == null || graphDefinition == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        graphLink.setGraphContent(graphContent);
+        graphLink.setGraphDefinition(graphDefinition);
         GraphLink result = linkRepository.save(graphLink);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
