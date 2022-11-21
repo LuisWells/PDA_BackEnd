@@ -2,14 +2,15 @@ package com.duberlyguarnizo.designartifacts.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.java.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Log
 public class SvgParser {
+    private static final Logger logger = LoggerFactory.getLogger(SvgParser.class);
     private final String svgContent;
 
     public SvgParser(String svgContent) {
@@ -42,7 +43,7 @@ public class SvgParser {
 
     public String parse(String contenidosJson) {
         String textVariablesString = svgContent.split("@@@")[1];
-        log.info(textVariablesString);
+        logger.info(textVariablesString);
         List<TextVariable> textVariables = new ArrayList<>();
         for (String singleVariableString : textVariablesString.split(";")) {
             String[] variableParts = singleVariableString.split("=");
@@ -52,7 +53,6 @@ public class SvgParser {
             int y = Integer.parseInt(variableValues[1].trim());
             int charsPerLine = Integer.parseInt(variableValues[2].trim());
             TextVariable textVariable = new TextVariable(variableName, x, y, charsPerLine);
-            log.info(textVariable.toString());
             textVariables.add(textVariable);
         }
 
@@ -62,11 +62,9 @@ public class SvgParser {
 
     private String reemplazarVariables(String contenidosJson, List<TextVariable> textVariables) {
         ObjectMapper objectMapper = new ObjectMapper();
-        String contenidosJsonData = contenidosJson.trim().substring(1, contenidosJson.trim().length() - 1);
-        log.info(contenidosJsonData);
         String svgContentNoFirstLine = svgContent.substring(svgContent.indexOf('\n') + 1);
         try {
-            Map<String, String> contenidos = objectMapper.readValue(contenidosJsonData, new TypeReference<>() {
+            Map<String, String> contenidos = objectMapper.readValue(contenidosJson, new TypeReference<>() {
             });
             for (TextVariable textVariable : textVariables) {
                 if (svgContentNoFirstLine.contains("@" + textVariable.name + "@")) {
@@ -74,16 +72,15 @@ public class SvgParser {
                         if (contenido.getKey().equals(textVariable.name)) {
                             String contenidoTags = contenido.getValue();
                             contenidoTags = getContenidoTags(textVariable, contenidoTags);
-                            log.info("Reemplazando " + textVariable.name + " por " + contenido.getValue());
                             svgContentNoFirstLine = svgContentNoFirstLine.replace("@" + textVariable.name + "@", contenidoTags);
                         }
                     }
                 } else {
-                    log.info("No se encontró la variable " + textVariable.name);
+                    logger.warn("No se encontró la variable {}", textVariable.name);
                 }
             }
         } catch (Exception e) {
-            log.severe(e.getMessage());
+            logger.error(e.getMessage());
         }
         return svgContentNoFirstLine;
     }

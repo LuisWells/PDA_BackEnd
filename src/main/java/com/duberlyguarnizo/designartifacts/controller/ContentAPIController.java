@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/content")
 public class ContentAPIController {
+    private static final Logger logger = LoggerFactory.getLogger(ContentAPIController.class);
     private final ContentRepository contentRepository;
 
     @Autowired
@@ -85,7 +88,9 @@ public class ContentAPIController {
                     content = @Content)})
     @PostMapping("/create")
     public ResponseEntity<GraphContent> createContent(@RequestBody GraphContent graphContent) {
+        logger.warn("Content received: " + graphContent);
         GraphContent result = contentRepository.save(graphContent);
+        logger.warn("Content created: " + result);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
