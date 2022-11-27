@@ -2,6 +2,7 @@ let formInputs;
 MicroModal.init();
 
 function showCreationForm(graphId) {
+    //TODO: add listeners to buttons to update visit details
     const $createGraph = $('#btn-create-graph'),
         $closeNewEntityBtn = $('#btn-close-new-graph-popup');
 
@@ -44,6 +45,7 @@ function showCreationForm(graphId) {
                     console.log(result);
                     const contentId = result.contentId;
                     const link_path = graphId + "-" + contentId;
+                    $form.replaceChildren(); //delete child nodes after successful creation
                     $.ajax({
                         url: "/api/link/create/",
                         type: "POST",
@@ -64,7 +66,9 @@ function showCreationForm(graphId) {
 
     $closeNewEntityBtn.on('click', function (event) {
         MicroModal.close('graph-creation-form');
-        $form.empty();
+        console.log("Close button clicked");
+        console.log($form);
+        $form.replaceChildren();
     });
 }
 

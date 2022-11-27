@@ -147,10 +147,8 @@ public class SiteController {
                         .encode("luis"));
         testAdmin.setName("Luis Daniel");
         testAdmin.setActive(true);
-        System.out.println(testAdmin);
-        testAdmin = adminRepository.save(testAdmin);
-        System.out.println("Sample user created!!!!!");
-        System.out.println(testAdmin);
+        adminRepository.save(testAdmin);
+        logger.warn("Sample user created!!!");
         return "redirect:index";
     }
 }
