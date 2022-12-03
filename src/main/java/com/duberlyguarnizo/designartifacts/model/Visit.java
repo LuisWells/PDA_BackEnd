@@ -48,6 +48,7 @@ public class Visit {
     private GraphLink graphLink;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime visitDateTime;
 
     private LocalDateTime lastVisitDateTime;

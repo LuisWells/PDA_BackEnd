@@ -33,13 +33,13 @@ public class GraphController {
         return graphRepository.findByName(name);//validate in frontend
     }
 
-    public List<GraphDefinition> getGraphsByCreationUserName(Long adminId) {
-        return graphRepository.findByCreationAdmin_AdminId(adminId);
+    public List<GraphDefinition> getGraphsByCreationUserName(String adminName) {
+        return graphRepository.findByCreationAdmin(adminName);
     }
 
 
-    public List<GraphDefinition> getGraphsByUpdateUserName(Long adminId) {
-        return graphRepository.findByUpdateAdmin_AdminId(adminId);
+    public List<GraphDefinition> getGraphsByUpdateUserName(String adminName) {
+        return graphRepository.findByUpdateAdmin(adminName);
 
     }
 

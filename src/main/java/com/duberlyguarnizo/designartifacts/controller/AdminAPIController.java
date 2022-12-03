@@ -131,14 +131,19 @@ public class AdminAPIController {
                     content = @Content)})
     @PutMapping("/update/{id}")
     public ResponseEntity<Admin> updateAdmin(@PathVariable("id") Long adminId, @RequestBody Admin admin) {
-        if (adminRepository.findById(adminId).orElse(null) == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
         if (!adminId.equals(admin.getAdminId())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        adminRepository.save(admin);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Admin adminData = adminRepository.findById(adminId).orElse(null);
+        if (adminData == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            if (admin.getPasswordHash().length() < 60) { //if new password is received, encode it
+                admin.setPasswordHash(pdaPasswordEncoder.bCryptPasswordEncoder().encode(admin.getPasswordHash()));
+            }
+            adminRepository.save(admin);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
     }
 
     @Operation(summary = "Borrar un administrador")

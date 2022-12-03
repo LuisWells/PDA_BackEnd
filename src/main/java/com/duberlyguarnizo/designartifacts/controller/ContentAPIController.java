@@ -109,6 +109,7 @@ public class ContentAPIController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         if (!contentId.equals(content.getContentId())) {
+            logger.warn("Content id mismatch: " + contentId + " != " + content.getContentId());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         contentRepository.save(content);

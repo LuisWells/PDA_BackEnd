@@ -49,6 +49,7 @@
                     <th>Nombre de Definición</th>
                     <th>Path</th>
                     <th>Creado</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -60,14 +61,12 @@
                     <td><span th:text="${link.graphContent.contentId}">Id Contenido</span></td>
                     <td><span th:text="${link.graphDefinition.graphId}">Id Definición</span></td>
                     <td><span th:text="${link.graphDefinition.name}">Id Definición</span></td>
-                    <td><span th:text="${link.path}">Path</span></td>
+                    <td><span><a th:href="'/artifact?path=' + ${link.path}" th:text="${link.path}"></a></span></td>
                     <td><span th:text="${#temporals.format(link.creationDate, 'dd-MM-yy')}">Creado</span></td>
+                    <td><span><a th:onclick="'deleteLink('+ ${link.linkId} +')'">Eliminar</a></span></td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="center-content">
-            <button class="button primary" id="btn-open-new-entity-popup">Crear Gráfico</button>
         </div>
     </div>
 </div>
@@ -130,6 +129,7 @@
 <script th:src="@{/js/util.js}"></script>
 <script th:src="@{/js/modals.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/link-edition.js}"></script>
 
 </body>
 </html>

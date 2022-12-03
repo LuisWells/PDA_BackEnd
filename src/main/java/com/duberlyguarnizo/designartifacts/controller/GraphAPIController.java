@@ -90,8 +90,8 @@ public class GraphAPIController {
             @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente",
                     content = @Content)})
     @GetMapping("/creator/{userId}")
-    public ResponseEntity<List<GraphDefinition>> getGraphsByCreationUserName(@PathVariable("userId") Long adminId) {
-        List<GraphDefinition> result = graphRepository.findByCreationAdmin_AdminId(adminId);
+    public ResponseEntity<List<GraphDefinition>> getGraphsByCreationUserName(@PathVariable("userId") String adminName) {
+        List<GraphDefinition> result = graphRepository.findByCreationAdmin(adminName);
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -123,9 +123,9 @@ public class GraphAPIController {
                     content = @Content),
             @ApiResponse(responseCode = "400", description = "Error en la petición desde el cliente",
                     content = @Content)})
-    @GetMapping("/updater/{adminId}")
-    public ResponseEntity<List<GraphDefinition>> getGraphsByUpdateUserName(@PathVariable("adminId") Long adminId) {
-        List<GraphDefinition> result = graphRepository.findByUpdateAdmin_AdminId(adminId);
+    @GetMapping("/updater/{adminName}")
+    public ResponseEntity<List<GraphDefinition>> getGraphsByUpdateUserName(@PathVariable("adminName") String adminName) {
+        List<GraphDefinition> result = graphRepository.findByUpdateAdmin(adminName);
         if (result.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
