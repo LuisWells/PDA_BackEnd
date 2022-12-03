@@ -48,4 +48,8 @@ public class AdminUserDetail implements UserDetails {
     public boolean isEnabled() {
         return admin.isActive();
     }
+
+    public String getName() {
+        return admin.getName();
+    }
 }

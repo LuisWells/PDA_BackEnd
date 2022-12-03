@@ -56,15 +56,12 @@
                 </tr>
                 <tr th:each="content : ${contents}">
                     <td><span th:text="${content.contentId}">Id</span></td>
-                    <td><span th:text="${content.contentJson}">Contenido</span></td>
+                    <td><span th:text="${#strings.abbreviate(content.contentJson, 80)}">Contenido</span></td>
                     <td><span th:text="${#temporals.format(content.creationDate, 'dd-MM-yy')}">Creado</span></td>
-                    <td><a href="#">Editar</a></td>
+                    <td><a href="#" th:onclick="'editContent(' + ${content.contentId}+');'">Editar</a></td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="center-content">
-            <button class="button primary" id="btn-open-new-entity-popup">Crear Contenido</button>
         </div>
     </div>
 </div>
@@ -127,20 +124,17 @@
         <!-- [3] -->
         <div aria-labelledby="modal-1-title" aria-modal="true" class="modal__container" role="dialog">
             <header>
-                <h2 id="modal-1-title">Crear Usuario Administrador</h2>
+                <h2 id="modal-1-title">Editar contenido</h2>
             </header>
 
             <main class="modal__content" id="modal-1-content">
                 <form class="form-container">
-                    <input id="admin_name" placeholder="Nombres completos" required type="text"/>
-                    <input id="admin_email" placeholder="Email" required type="email"/>
-                    <input id="admin_password" placeholder="Contraseña" required type="password"/>
-                    <input id="admin_password2" placeholder="Confirmar contraseña" required type="password"/>
-                    <input checked id="admin_active" type="checkbox"/><label for="admin_active">Activo?</label>
+                    <input id="content_json" placeholder="Json" required type="text"/>
                 </form>
             </main>
             <footer class="modal__footer">
-                <button class="button primary" id="btn-create-entity" name="createAdmin">Crear Admin</button>
+                <button class="button primary" id="btn-update-entity" name="updateContent">Guardar</button>
+                <button class="button primary" id="btn-delete-entity" name="deleteContent">Eliminar</button>
                 <button class="button" id="btn-close-new-entity-popup">Cancelar</button>
             </footer>
 
@@ -157,6 +151,7 @@
 <script th:src="@{/js/util.js}"></script>
 <script th:src="@{/js/modals.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/content-edition.js}"></script>
 
 </body>
 </html>

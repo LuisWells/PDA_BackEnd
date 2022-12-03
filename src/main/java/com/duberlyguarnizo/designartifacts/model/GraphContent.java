@@ -26,6 +26,7 @@ public class GraphContent {
     private String contentJson;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime creationDate;
 
     @UpdateTimestamp

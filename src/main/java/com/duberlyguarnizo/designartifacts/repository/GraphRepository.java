@@ -9,7 +9,7 @@ import java.util.List;
 public interface GraphRepository extends JpaRepository<GraphDefinition, Long> {
     List<GraphDefinition> findByName(String graphName);
 
-    List<GraphDefinition> findByCreationAdmin_AdminId(Long adminId);
+    List<GraphDefinition> findByCreationAdmin(String adminName);
 
-    List<GraphDefinition> findByUpdateAdmin_AdminId(Long adminId);
+    List<GraphDefinition> findByUpdateAdmin(String adminName);
 }

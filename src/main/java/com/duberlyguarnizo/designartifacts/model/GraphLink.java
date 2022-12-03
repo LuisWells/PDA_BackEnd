@@ -36,6 +36,7 @@ public class GraphLink {
     private GraphContent graphContent;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime creationDate;
 
     @UpdateTimestamp

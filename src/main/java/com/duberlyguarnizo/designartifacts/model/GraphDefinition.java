@@ -6,6 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +19,7 @@ import java.time.LocalDateTime;
 @ToString
 @RequiredArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class GraphDefinition {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,17 +35,15 @@ public class GraphDefinition {
     @NotBlank
     private String svg;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_creation_admin_id")
-    @ToString.Exclude
-    private Admin creationAdmin;
+    @CreatedBy
+    @Column(updatable = false)
+    private String creationAdmin;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_update_admin_id")
-    @ToString.Exclude
-    private Admin updateAdmin;
+    @LastModifiedBy
+    private String updateAdmin;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime creationDate;
 
     @UpdateTimestamp

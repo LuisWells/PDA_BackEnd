@@ -1,6 +1,7 @@
 const $createEntity = $('#btn-create-entity'),
     $openNewEntityBtn = $('#btn-open-new-entity-popup'),
-    $closeNewEntityBtn = $('#btn-close-new-entity-popup');
+    $closeNewEntityBtn = $('#btn-close-new-entity-popup'),
+    $title = $('#modal-1-title');
 
 MicroModal.init();
 $createEntity.on('click', function (event) {
@@ -8,8 +9,8 @@ $createEntity.on('click', function (event) {
         case 'createAdmin':
             createAdmin();
             break;
-        case 'createContent':
-            createContent();
+        case 'createGraph':
+            createGraph();
             break;
     }
 });
@@ -42,11 +43,40 @@ function createAdmin() {
     }
 }
 
-function createContent() {
+function createGraph() {
+    const graph_name = $('#graph_name').val();
+    const graph_svg = $('#graph_svg').val();
+    const graph_version = $('#graph_version').val();
+    $title.text('Crear Definición de Gráfico');
 
+    console.log("Modifying content...");
+    const graph = {
+        'name': graph_name,
+        'svg': graph_svg,
+        'version': graph_version
+    }
+    $.ajax({
+        url: "/api/graph/create", // We are using the API version of controller so Thymeleaf won't complain about template
+        type: "POST",
+        data: JSON.stringify(graph),
+        contentType: "application/json",
+        success: function (result) {
+            console.log("gráfico creado!");
+            MicroModal.close('modal-1');
+            window.location.reload();
+        }
+    });
 }
 
 $openNewEntityBtn.on('click', function (event) {
+    const $updateButton = $('#btn-update-entity');
+    const $createButton = $('#btn-create-entity');
+    const $deleteButton = $('#btn-delete-entity');
+    $createButton.show();
+    $updateButton.hide();
+    $deleteButton.hide();
+    $title.text('Nuevo');
+
     MicroModal.show('modal-1');
     console.log("Opening modal...");
 });

@@ -61,7 +61,7 @@
                         <span class="tag tag-inactive tag-sm" th:if="${user.active==false}">Inactivo</span></td>
                     <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Creado</span>
                     </td>
-                    <td><a href="#">Editar</a></td>
+                    <td><a href="#" th:onclick="'editAdmin(' + ${user.adminId}+');'">Editar</a></td>
                 </tr>
                 </tbody>
             </table>
@@ -144,6 +144,8 @@
             </main>
             <footer class="modal__footer">
                 <button class="button primary" id="btn-create-entity" name="createAdmin">Crear Admin</button>
+                <button class="button primary" id="btn-update-entity" name="updateAdmin">Guardar</button>
+                <button class="button primary" id="btn-delete-entity" name="deleteAdmin">Eliminar</button>
                 <button class="button" id="btn-close-new-entity-popup">Cancelar</button>
             </footer>
 
@@ -160,6 +162,7 @@
 <script th:src="@{/js/util.js}"></script>
 <script th:src="@{/js/modals.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/admin-edition.js}"></script>
 
 </body>
 </html>
