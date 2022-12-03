@@ -27,7 +27,7 @@ public class AppSecurityConfig {
         http.formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/admin", true)
+                .defaultSuccessUrl("/admin-proxy", true)
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
