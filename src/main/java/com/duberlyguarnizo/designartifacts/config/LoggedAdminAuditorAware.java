@@ -12,9 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
+@Component
 public class LoggedAdminAuditorAware implements AuditorAware<String> {
     private static final Logger logger = LoggerFactory.getLogger(LoggedAdminAuditorAware.class);
 
@@ -24,7 +26,6 @@ public class LoggedAdminAuditorAware implements AuditorAware<String> {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             Object principal = auth.getPrincipal();
             AdminUserDetail userDetails = (AdminUserDetail) principal;
-            logger.warn("Auditor: " + userDetails.getName());
             return Optional.of(userDetails.getName());
         } else {
             logger.warn(" Unable to get Auditor");

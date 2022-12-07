@@ -57,6 +57,7 @@
                 <tr th:each="content : ${contents}">
                     <td><span th:text="${content.contentId}">Id</span></td>
                     <td><span th:text="${#strings.abbreviate(content.contentJson, 80)}">Contenido</span></td>
+                    <!--TODO: change temporal to show local date and not GTM-->
                     <td><span th:text="${#temporals.format(content.creationDate, 'dd-MM-yy')}">Creado</span></td>
                     <td><a href="#" th:onclick="'editContent(' + ${content.contentId}+');'">Editar</a></td>
                 </tr>

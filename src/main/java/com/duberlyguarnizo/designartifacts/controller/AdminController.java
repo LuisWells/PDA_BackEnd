@@ -67,7 +67,6 @@ public class AdminController {
         }
         return adminRepository.save(admin);
     }
-    //TODO: implement admin change password
 
 
     public void deleteAdmin(Long id) {

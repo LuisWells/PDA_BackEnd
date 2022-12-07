@@ -1,5 +1,6 @@
 package com.duberlyguarnizo.designartifacts.controller;
 
+import com.duberlyguarnizo.designartifacts.config.AdminUserDetail;
 import com.duberlyguarnizo.designartifacts.config.PdaPasswordEncoder;
 import com.duberlyguarnizo.designartifacts.model.Admin;
 import com.duberlyguarnizo.designartifacts.model.Comment;
@@ -13,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -52,12 +55,25 @@ public class SiteController {
     @GetMapping("/login")
     public String login() {
         return "login";
-        //TODO: add last login date to current user
     }
 
     @GetMapping("/admin")
     public String adminPanel(Model model) {
         return "admin";
+    }
+
+    @GetMapping("/admin-proxy")
+    public String adminProxy() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = auth.getPrincipal();
+        AdminUserDetail userDetails = (AdminUserDetail) principal;
+        adminRepository.findById(userDetails.getId()).ifPresent(admin -> {
+            admin.setLastLoginDate(LocalDateTime.now());
+            adminRepository.save(admin);
+            logger.info("Last login date set for admin login attempt for admin: {}", admin.getEmail());
+            logger.info(admin.getLastLoginDate().toString());
+        });
+        return "redirect:admin";
     }
 
     @PostMapping(path = "/comentarios", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})

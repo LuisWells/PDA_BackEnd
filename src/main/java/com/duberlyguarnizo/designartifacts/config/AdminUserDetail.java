@@ -52,4 +52,8 @@ public class AdminUserDetail implements UserDetails {
     public String getName() {
         return admin.getName();
     }
+
+    public Long getId() {
+        return admin.getAdminId();
+    }
 }
