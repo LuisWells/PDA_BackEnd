@@ -40,12 +40,13 @@
                 modificarlos.</p>
         </div>
         <div class="table-wrapper">
-            <table>
+            <table aria-describedby="Listado de usuarios registrados en el sistema">
                 <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Estado</th>
+                    <th>Último Login</th>
                     <th>Creado</th>
                     <th></th>
                 </tr>
@@ -59,6 +60,7 @@
                     <td><span th:text="${user.email}">Email</span></td>
                     <td><span class="tag tag-active tag-sm" th:if="${user.active==true}">&nbsp;Activo&nbsp;</span>
                         <span class="tag tag-inactive tag-sm" th:if="${user.active==false}">Inactivo</span></td>
+                    <td><span th:text="${#temporals.format(user.lastLoginDate, 'dd-MM-yy')}">Último Login</span>
                     <td><span th:text="${#temporals.format(user.creationDate, 'dd-MM-yy')}">Creado</span>
                     </td>
                     <td><a href="#" th:onclick="'editAdmin(' + ${user.adminId}+');'">Editar</a></td>

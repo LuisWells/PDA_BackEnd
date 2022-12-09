@@ -15,13 +15,13 @@ function showCreationForm(graphId) {
     variableList().then(data => {
         console.log("Variables for ID: " + graphId);
         for (let dataKey in data) {
-            const input = document.createElement("input");
+            const input = document.createElement("textarea");
             input.setAttribute("type", "text");
             input.setAttribute("id", data[dataKey]);
             input.setAttribute("placeholder", data[dataKey]);
             $form.append(input);
         }
-        formInputs = document.querySelectorAll("#graph-creation-form-controls input");
+        formInputs = document.querySelectorAll("#graph-creation-form-controls textarea");
         //create graph
         $createGraph.on('click', function (event) {
             let graphData = {};
@@ -55,13 +55,15 @@ function showCreationForm(graphId) {
                         success: function (result) {
                             console.log("Link created:");
                             console.log(result);
-                            window.open("/artifact?/path=" + link_path, "_self");
+                            window.open("/artifact?path=" + link_path, "_self");
                         }
                     });
                 }
             });
         });
     });
+    //hide first modal
+    pressEsc();
     MicroModal.show('graph-creation-form');
 
     $closeNewEntityBtn.on('click', function (event) {
@@ -72,5 +74,12 @@ function showCreationForm(graphId) {
     });
 }
 
+function pressEsc() {
+    $('.poptrox-overlay').trigger({
+        type: 'keyup',
+        which: 27
+    });
+    console.log("Esc pressed");
+}
 
 
