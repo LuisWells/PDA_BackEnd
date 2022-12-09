@@ -29,12 +29,16 @@
             </ul>
         </nav>
     </header>
-<!--TODO: agregar boton de donaciones-->
     <!-- Main -->
     <h1>Artefacto Generado</h1>
     <div class="center-vertical" id="main">
+        <div>
+            <a class="button" download="artifact.png" id='downloadLink'>Descargar Imagen</a>
+        </div>
         <div class="center-vertical apa-style">
-            <svg height="50em" th:utext="${svgArtifact}" width="50em" xmlns="http://www.w3.org/2000/svg"/>
+            <div id="originalSVG">
+                <svg height="50em" th:utext="${svgArtifact}" width="50em" xmlns="http://www.w3.org/2000/svg"/>
+            </div>
         </div>
     </div>
 
@@ -55,9 +59,16 @@
                         <li><a class="icon brands fa-github" href="#"><span class="label">GitHub</span></a></li>
                     </ul>
                 </section>
-                <p class="copyright">
-                    ¿Eliminar artefactos, bloquear usuarios?: <a th:href="@{/admin}">admin panel</a>.
-                </p>
+                <div>
+                    <p class="copyright">
+                        ¿Eliminar artefactos, bloquear usuarios?: <a th:href="@{/admin}">admin panel</a>.
+                    </p>
+                </div>
+                <div>
+                    <p>Todo cuesta, y PDA no es una excepción. Puedes ayudar metiendo una moneda al chanchito:</p>
+                    <a class="button icon solid fa-piggy-bank" href="#" onclick="showDonations()">&nbsp;Hacer
+                        donativo</a>
+                </div>
             </div>
             <div>
                 <section>
@@ -88,14 +99,36 @@
     </footer>
 
 </div>
+<!--popup donations-->
+<!-- [1] -->
+<div aria-hidden="true" class="modal" id="donations-modal">
+    <!-- [2] -->
+    <div class="modal__overlay" tabindex="-1">
+        <!-- [3] -->
+        <div aria-labelledby="graph-creation-form-title" aria-modal="true" class="modal__container" role="dialog">
+            <header>
+                <h2 id="donations-modal-header">Hacer Donación</h2>
+            </header>
+            <main class="modal__content" id="donations-modal-content">
+                <img alt="donations QR code" th:src="@{/images/site/yape_donation.jpg}" width="100%">
+            </main>
+            <footer class="modal__footer">
+                <button class="button" onclick="hideDonations()">Cerrar</button>
+            </footer>
+        </div>
+
+    </div>
+</div>
 
 <!-- Scripts -->
+<script th:src="@{/js/micromodal.min.js}"></script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/jquery.poptrox.min.js}"></script>
 <script th:src="@{/js/browser.min.js}"></script>
 <script th:src="@{/js/breakpoints.min.js}"></script>
 <script th:src="@{/js/util.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-
+<script th:src="@{/js/donations.js}"></script>
+<script defer th:src="@{/js/svg2png.js}"></script>
 </body>
 </html>

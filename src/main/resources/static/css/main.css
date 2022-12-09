@@ -244,6 +244,8 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.5;
     margin: 0 0 1em 0;
     text-transform: uppercase;
+    padding-left: 1em;
+    padding-top: 0.5em;
 }
 
 h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -1079,7 +1081,7 @@ table.alt tfoot {
     overflow-y: auto;
     position: fixed;
     width: 100%;
-    z-index: 10001;
+    z-index: 100;
 }
 
 .panel.active {
@@ -2150,7 +2152,7 @@ body.is-preload #main .thumb {
     display: flex;
     justify-content: center;
     text-align: center;
-    margin-top: 5em;
+    margin-top: 3em;
 }
 
 /* The popup form - hidden by default */
@@ -2172,7 +2174,7 @@ body.is-preload #main .thumb {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 120;
 }
 
 .modal__overlay_above {
@@ -2207,4 +2209,8 @@ body.is-preload #main .thumb {
 
 .apa-style {
     background-color: #fff;
+}
+
+.hidden {
+    display: none;
 }
